@@ -14,7 +14,7 @@
         <h1 class="text-3xl font-bold text-center mb-4 text-white">
             welcome to momentum!
             <span class="inline-flex items-center">
-                <x-application-logo class="w-5 h-5 inline-block align-middle" />
+                <x-icon.logo class="w-5 h-5 inline-block align-middle" />
             </span>
         </h1>
         <p class="text-gray-600 text-1xl font-bold mb-6 text-left">

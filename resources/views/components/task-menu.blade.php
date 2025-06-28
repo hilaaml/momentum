@@ -6,7 +6,6 @@
         &#8942;
     </button>
 
-    {{-- dropdown --}}
     <div x-show="open" x-transition x-on:click.away="open = false"
         class="absolute right-0 mt-2 w-28 bg-white dark:bg-gray-800
                 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-10">
@@ -18,45 +17,47 @@
         <button
             x-on:click="$dispatch('open-modal', 'delete-task-{{ $task->id }}'); open = false"
             class="w-full px-3 py-2 text-left text-xs text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-            Hapus
+            Delete
         </button>
     </div>
 
-    {{-- MODAL EDIT --}}
+
     <x-modal name="edit-task-{{ $task->id }}" :show="false" focusable>
-        <form method="POST" action="{{ route('tasks.update', $task) }}" class="p-6 space-y-6">
+        <form method="POST" action="{{ route('tasks.update', $task) }}" class="pb-6 pt-3 px-6 space-y-3">
             @csrf @method('PATCH')
 
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Edit Task</h2>
+            <h2>Edit Task</h2>
 
             <div>
-                <x-input-label for="task-name-{{ $task->id }}" value="Nama Task" />
-                <x-text-input id="task-name-{{ $task->id }}" name="name"
-                    value="{{ $task->name }}" class="mt-1 block w-full" required />
+                <x-text-input
+                    id="task-name-{{ $task->id }}" name="name"
+                    value="{{ $task->name }}"
+                    class="mt-1 block w-full"
+                    required
+                    placeholder="Task name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <div class="flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-primary-button class="ml-2">Simpan</x-primary-button>
+                <x-secondary-button x-on:click="$dispatch('close')">Cancel</x-secondary-button>
+                <x-primary-button class="ml-2">Save</x-primary-button>
             </div>
         </form>
     </x-modal>
 
-    {{-- MODAL HAPUS --}}
     <x-modal name="delete-task-{{ $task->id }}" :show="false" focusable>
-        <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="p-6 space-y-6">
+        <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="pb-6 pt-3 px-6 space-y-3">
             @csrf @method('DELETE')
 
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Hapus Task</h2>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Delete task</h2>
 
             <p class="text-sm text-gray-600 dark:text-gray-400">
-                Yakin ingin menghapus task <strong>{{ $task->name }}</strong>?
+                Are you sure you want to delete this task (<strong>{{ $task->name }}</strong>) ?
             </p>
 
             <div class="flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-danger-button class="ml-2">Hapus</x-danger-button>
+                <x-secondary-button x-on:click="$dispatch('close')">Cancel</x-secondary-button>
+                <x-danger-button class="ml-2">Delete</x-danger-button>
             </div>
         </form>
     </x-modal>

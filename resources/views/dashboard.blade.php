@@ -17,7 +17,7 @@
                     </button>
                     <x-modal name="timeline-modal" :show="false">
                         <div class="p-6 space-y-4">
-                            <h2> \Timeline Hari Ini </h2>
+                            <h2> Today Work Log </h2>
                             <x-timeline-table :logs="$todayLogs" />
                             <div class="flex justify-end">
                                 <x-secondary-button x-on:click="$dispatch('close')">Tutup</x-secondary-button>
@@ -41,16 +41,16 @@
             </ul>
 
             @empty
-            <p class="py-4 text-center text-gray-500 dark:text-gray-300">Belum ada proyek.</p>
+            <p class="py-4 text-center text-gray-500 dark:text-gray-300">You haven’t created any projects.</p>
             @endforelse
 
             <div class="flex justify-end">
-                <x-primary-button
+                <x-secondary-button
                     x-data
                     x-on:click="$dispatch('open-modal', 'create-project')"
                     class="ml-auto mt-4 block">
                     + Project
-                </x-primary-button>
+                </x-secondary-button>
             </div>
             <x-modal name="create-project" focusable>
                 <form method="POST" action="{{ route('projects.store') }}" class="pb-6 pt-3 px-6 space-y-3">
@@ -67,6 +67,6 @@
                 </form>
             </x-modal>
         </x-content-card>
-        
+
     </div>
 </x-app-layout>

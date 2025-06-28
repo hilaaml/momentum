@@ -8,11 +8,9 @@
                {{ $task->is_done ? 'checked' : '' }} />
     </form>
 
-    {{-- nama task --}}
     <span class="flex-1 text-sm {{ $task->is_done ? 'line-through text-gray-500' : '' }}">
         {{ $task->name }}
     </span>
 
-    {{-- menu titik-tiga --}}
     <x-task-menu :task="$task" />
 </li>
