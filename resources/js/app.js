@@ -1,7 +1,9 @@
 import './bootstrap';
 import timers from './timers';
-timers();
 import Alpine from 'alpinejs';
+import './reportCharts';
+
+timers();
 
 window.Alpine = Alpine;
 

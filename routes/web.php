@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Reports
-    Route::get('/reports', [ReportController::class, 'reports'])->name('reports');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports');
 
     // Timeline
     Route::get('/timeline', [TimeLogController::class, 'index'])->name('timeline');

@@ -20,9 +20,10 @@
     'resources/js/app.js',
     'resources/js/heatmap-init.js',
     'resources/js/timers.js',
-    'resources/css/app.css'
+    'resources/css/app.css',
+    'resources/js/reportCharts.js'
     ])
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cal-heatmap/3.6.2/cal-heatmap.min.js"></script>
 
@@ -35,13 +36,31 @@
         @include('layouts.navigation')
 
         <div class="flex-1 flex flex-col overflow-hidden blurIn">
-            <main class="flex-1 overflow-y-auto">
-                {{ $slot }}
-            </main>
-        </div>
 
+            <header class="px-3 my-3 border-b border-gray-200 dark:border-gray-700 pb-3">
+                @isset($header)
+                <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-100">
+                    {{ is_string($header) ? $header : '' }}
+                </h1>
+
+                @if (!is_string($header))
+                <div class="mt-2">
+                    {{ $header }}
+                </div>
+                @endif
+                @endisset
+            </header>
+
+
+            <main class="flex-1 overflow-y-auto">
+                <div class="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-20">
+                    {{ $slot }}
+                </div>
+            </main>
+
+        </div>
     </div>
-    <!-- @stack('scripts') -->
 </body>
+
 
 </html>

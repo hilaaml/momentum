@@ -1,76 +1,97 @@
 <x-app-layout>
-    {{-- --- PHP → JS bridge (must stay inside @push so layout can place it) --}}
     @push('scripts')
     <script>
         window.heatmapData = @json($dailyData ?? []);
         window.heatmapStart = "{{ $from ?? now()->toDateString() }}";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof window.initReportCharts === 'function') {
+                window.initReportCharts(
+                    @json($byDay),
+                    @json($byHour),
+                    @json($projectLabels),
+                    @json($projectValues)
+                );
+            }
+        });
     </script>
     @endpush
 
-    <x-header title="Reports" />
 
-    <div
-        class="grid gap-6 px-4 py-4 sm:px-8 lg:px-12
-               grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <x-slot name="header">Reports</x-slot>
 
-        <x-content-card class="col-span-full">
-            <form method="GET"
-                action="{{ route('reports') }}"
-                class="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6
-                           justify-center items-end mx-auto max-w-4xl">
+    <div class="max-w-screen-xl mx-auto space-y-6 text-center">
 
-                <div class="w-full sm:w-auto">
-                    <label class="block mb-1 text-sm text-gray-700 dark:text-gray-300">From:</label>
-                    <input type="date" name="from" value="{{ request('from') }}"
-                        class="w-full sm:w-40 px-2 py-1 rounded border
-                                   border-gray-300 dark:border-gray-600
-                                   dark:bg-gray-700 dark:text-white">
+    <x-content-card centerXY>
+            <form method="GET" action="{{ route('reports') }}" class="flex flex-wrap items-end gap-4">
+                @foreach (['from' => 'From', 'to' => 'To'] as $field => $label)
+                <div class="flex flex-col">
+                    <label class="text-sm text-gray-700 dark:text-gray-300">{{ $label }}:</label>
+                    <input type="date" name="{{ $field }}"
+                        value="{{ request($field) ?? now()->{ $field === 'from' ? 'startOfMonth' : 'now' }()->toDateString() }}"
+                        class="rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white px-1 py-1 text-xs">
                 </div>
-
-                <div class="w-full sm:w-auto">
-                    <label class="block mb-1 text-sm text-gray-700 dark:text-gray-300">To:</label>
-                    <input type="date" name="to" value="{{ request('to') }}"
-                        class="w-full sm:w-40 px-2 py-1 rounded border
-                                   border-gray-300 dark:border-gray-600
-                                   dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <x-primary-button class="w-full sm:w-auto">
-                    Show
-                </x-primary-button>
+                @endforeach
+                <x-primary-button class="p-2">Show</x-primary-button>
             </form>
         </x-content-card>
 
-        <x-content-card>
-            <p>Total waktu:
-                <strong>{{ \Carbon\CarbonInterval::seconds($totalSeconds)->cascade()->format('%h jam %i menit %s detik') }}</strong>
-            </p>
-        </x-content-card>
-
-        <x-content-card>
-            <p>Rata-rata per hari:
-                <strong>{{ \Carbon\CarbonInterval::seconds($averagePerDay)->cascade()->format('%h jam %i menit %s detik') }}</strong>
-            </p>
-        </x-content-card>
-
-        <x-content-card>
-            @if ($mostActiveDay && $mostActiveHour)
-            <p>Hari paling aktif:
-                <strong>{{ ucfirst($mostActiveDay) }}</strong>
-            </p>
-            <p>Jam paling aktif:
-                <strong>{{ $mostActiveHour }}:00–{{ (int)$mostActiveHour + 1 }}:00</strong>
-            </p>
-            @else
-            <p class="text-gray-500 dark:text-gray-400">
-                Belum ada data aktivitas yang cukup.</p>
-            @endif
-        </x-content-card>
-
-        <x-content-card class="col-span-full">
-            <div class="overflow-x-auto max-w-full">
-                <div id="heatmap" class="inline-block min-w-[640px]"></div>
+        <x-content-card class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center place-items-center">
+            @foreach ([
+            'Total Time' => \Carbon\CarbonInterval::seconds($totalSeconds)->cascade()->format('%h hours %i minutes %s seconds'),
+            'Average Per Day' => \Carbon\CarbonInterval::seconds($averagePerDay)->cascade()->format('%h hours %i minutes %s seconds'),
+            'Completed Tasks' => $completedTasksCount,
+            'Tracked Projects' => $trackedProjectCount,
+            ] as $label => $value)
+            <div>
+                <p class="text-sm text-gray-600 dark:text-gray-300">{{ $label }}</p>
+                <strong class="text-lg text-indigo-600 dark:text-indigo-400">{{ $value }}</strong>
             </div>
+            @endforeach
         </x-content-card>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            {{-- Most Active Day --}}
+            <x-content-card centerXY>
+                <div class="space-y-4 w-full">
+                    <p>Most Active Day: <strong>{{ ucfirst($mostActiveDay) }}</strong></p>
+                    <canvas id="activeDaysChart" class="w-full h-[200px]"></canvas>
+                </div>
+            </x-content-card>
+
+            <x-content-card centerXY>
+                <div class="space-y-4 w-full">
+                    <p>Activity Heatmap</p>
+                    <div id="heatmap" class="min-w-[300px] flex justify-center items-center"></div>
+                </div>
+            </x-content-card>
+
+            <x-content-card centerXY>
+                <div class="space-y-4 w-full">
+                    <p>Most Active Hour:
+                        <strong>{{ $mostActiveHour }}:00–{{ (int)$mostActiveHour + 1 }}:00</strong>
+                    </p>
+                    <canvas id="hourlyChart" class="w-full h-[200px]"></canvas>
+                </div>
+            </x-content-card>
+
+            <x-content-card centerXY>
+                <div class="space-y-4 w-full text-center">
+                    <p>Top Time-Consuming Project:
+                        <strong>{{ $topProject?->name ?? '—' }}</strong>
+                        ({{ \Carbon\CarbonInterval::seconds($topProjectSeconds)->cascade()->forHumans() }})
+                    </p>
+                    <div class="flex justify-center items-center h-[250px]">
+                        <canvas id="projectPieChart"></canvas>
+                    </div>
+                </div>
+            </x-content-card>
+        </div>
+
+        <x-content-card>
+            <p class="pb-3">Activity Timeline</p>
+            <x-timeline-table :logs="$allLogs" class="h-[500px] overflow-y-auto" />
+        </x-content-card>
+
     </div>
 </x-app-layout>

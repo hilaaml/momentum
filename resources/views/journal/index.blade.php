@@ -3,6 +3,11 @@ use Carbon\Carbon;
 @endphp
 
 <x-app-layout>
+
+    <x-slot name="header">
+        Journal
+    </x-slot>
+
     {{-- PILIH BULAN & TAHUN --}}
     <div class="flex justify-between items-center mb-4">
         <form method="GET" class="flex gap-2">

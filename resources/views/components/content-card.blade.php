@@ -1,8 +1,13 @@
-@props(['class' => ''])
+@props([
+'class' => '',
+'centerXY' => false, // aktifkan untuk center X dan Y
+])
 
-<div {{ $attributes->merge([
-        'class' => "flex-1 justify-end p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg
-                    transition-all duration-500 ease-in-out $class"
-    ]) }}>
+@php
+$base = "flex-1 p-4 sm:p-6 bg-white dark:bg-gray-800 shadow rounded-2xl transition-all duration-300";
+$centerClass = $centerXY ? 'flex justify-center items-center h-full' : '';
+@endphp
+
+<div {{ $attributes->merge(['class' => "$base $centerClass $class"]) }}>
     {{ $slot }}
 </div>

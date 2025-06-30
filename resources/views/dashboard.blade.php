@@ -1,8 +1,10 @@
 <x-app-layout>
 
-    <x-header title="Dashboard" />
+    <x-slot name="header">
+        Dashboard
+    </x-slot>
 
-    <div class="py-3 px-12 mx-auto flex flex-col space-y-6 ">
+    <div class="py-3 mx-auto flex flex-col space-y-6 ">
 
         <x-content-card>
             <div class="flex justify-between items-center">
@@ -20,7 +22,7 @@
                             <h2> Today Work Log </h2>
                             <x-timeline-table :logs="$todayLogs" />
                             <div class="flex justify-end">
-                                <x-secondary-button x-on:click="$dispatch('close')">Tutup</x-secondary-button>
+                                <x-secondary-button x-on:click="$dispatch('close')">Close</x-secondary-button>
                             </div>
                         </div>
                     </x-modal>
