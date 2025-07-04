@@ -5,7 +5,7 @@
     <div class="flex gap-5 items-center">
         <x-project-toggle :project="$project" />
 
-        <h3 class="text-base font-semibold truncate">{{ $project->name }}</h3>
+        <h3 class="text-base font-semibold truncate text-gray-600 dark:text-gray-300">{{ $project->name }}</h3>
     </div>
 
     <div class="flex items-center justify-end">
