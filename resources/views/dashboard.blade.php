@@ -53,7 +53,7 @@
             <x-modal name="create-project" focusable>
                 <form method="POST" action="{{ route('projects.store') }}" class="pb-6 pt-3 px-6 space-y-3">
                     @csrf
-                    <h2>Add new project </h2>
+                    <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">Add new project </h2>
                     <div>
                         <x-text-input id="name" name="name" required autofocus class="mt-1 block w-full" placeholder="project name" />
                         <x-input-error for="name" class="mt-2" />

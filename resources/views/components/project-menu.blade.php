@@ -3,7 +3,7 @@
 <div x-data="{ open: false }" class="relative">
 
     <button x-on:click="open = !open"
-        class="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+        class="p-1 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
         &#8942;
     </button>
 
@@ -13,13 +13,13 @@
 
         <button
             x-on:click="$dispatch('open-modal', 'task-create-{{ $project->id }}'); open = false"
-            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700">
+            class="w-full px-4 py-2 text-left text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
             add new task
         </button>
 
         <button
             x-on:click="$dispatch('open-modal', 'edit-project-{{ $project->id }}'); open = false"
-            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700">
+            class="w-full px-4 py-2 text-left text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
             edit
         </button>
 

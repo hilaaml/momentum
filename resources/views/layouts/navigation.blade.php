@@ -2,8 +2,8 @@
     x-data="sidebar()"
     x-init="init()"
     x-cloak
-    class="h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700
-           p-4 flex flex-col justify-between text-sm text-gray-700 dark:text-gray-300 transition-all duration-500">
+    class="h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700
+           p-4 flex flex-col justify-between text-sm text-gray-700 dark:text-gray-300 transition-all duration-500 overflow-y-auto">
 
     <div class="flex flex-col items-end gap-6 transition-all duration-300">
 
@@ -12,7 +12,7 @@
             aria-label="Toggle sidebar"
             class="text-gray-600 hover:text-indigo-600">
 
-            <template x-if=" expanded">
+            <template x-if="expanded">
                 <div class="w-5 h-5">
                     <div class="w-5 h-5">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -61,7 +61,7 @@
             x-show="expanded" x-transition.opacity>
             {{ Auth::user()->name }}
             <a href="{{ route('profile.edit') }}" class="underline text-xs">(edit)</a>
-            <div class=" text-xs">{{ Auth::user()->email }}
+            <div class="text-xs">{{ Auth::user()->email }}
             </div>
         </div>
         <form method="POST" action="{{ route('logout') }}" class="mt-3">
