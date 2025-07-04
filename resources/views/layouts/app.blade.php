@@ -33,19 +33,21 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="h-screen flex overflow-hidden bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen flex bg-gray-100 dark:bg-gray-900">
+        <!-- Sidebar -->
+        <div class="fixed inset-y-0 left-0">
+            @include('layouts.navigation')
+        </div>
 
-        @include('layouts.navigation')
-
-        <div class="flex-1 flex flex-col">
-            <main class="flex-1 flex items-center justify-center">
-                <div class="w-full max-w-screen-xl px-5 sm:px-10 lg:px-20 py-8">
+        <!-- Main Content -->
+        <div class="flex-1 ml-[88px]"> <!-- Default width when sidebar is collapsed -->
+            <main class="min-h-screen flex flex-col {{ Request::is('dashboard') || Request::is('journal*') ? 'justify-center' : '' }}">
+                <div class="w-full max-w-screen-xl px-5 sm:px-10 lg:px-20 mx-auto py-8">
                     {{ $slot }}
                 </div>
             </main>
         </div>
     </div>
 </body>
-
 
 </html>
