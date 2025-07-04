@@ -1,9 +1,5 @@
 <x-app-layout>
 
-    <x-slot name="header">
-        Dashboard
-    </x-slot>
-
     <div class="py-3 mx-auto flex flex-col space-y-6 ">
 
         <x-content-card>

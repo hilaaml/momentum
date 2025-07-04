@@ -27,7 +27,7 @@
         </tr>
         @empty
         <tr>
-            <td colspan="4" class="p-4 text-center text-gray-500 dark:text-gray-400">You haven’t tracked at this time, please change the period.</td>
+            <td colspan="4" class="p-4 text-center text-gray-500 dark:text-gray-400">You haven’t tracked any time.</td>
         </tr>
         @endforelse
     </tbody>

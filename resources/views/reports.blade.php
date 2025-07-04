@@ -17,12 +17,9 @@
     </script>
     @endpush
 
-
-    <x-slot name="header">Reports</x-slot>
-
     <div class="max-w-screen-xl mx-auto space-y-6 text-center">
 
-    <x-content-card centerXY>
+        <x-content-card centerXY>
             <form method="GET" action="{{ route('reports') }}" class="flex flex-wrap items-end gap-4">
                 @foreach (['from' => 'From', 'to' => 'To'] as $field => $label)
                 <div class="flex flex-col">
@@ -61,10 +58,14 @@
 
             <x-content-card centerXY>
                 <div class="space-y-4 w-full">
-                    <p>Activity Heatmap</p>
-                    <div id="heatmap" class="min-w-[300px] flex justify-center items-center"></div>
+                    <p class="text-center">Activity Heatmap</p>
+
+                    <div class="w-full overflow-x-auto">
+                        <div id="heatmap" class="mx-auto min-w-[300px] max-w-full"></div>
+                    </div>
                 </div>
             </x-content-card>
+
 
             <x-content-card centerXY>
                 <div class="space-y-4 w-full">

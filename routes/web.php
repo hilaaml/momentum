@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/journal/{journal}', [JournalController::class, 'update'])->name('journal.update');
     Route::delete('/journal/{journal}', [JournalController::class, 'destroy'])->name('journal.destroy');
 
+
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

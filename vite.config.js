@@ -8,7 +8,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/heatmap-init.js',
-                'resources/js/timers.js'
+                'resources/js/timers.js',
+                'resources/js/journal-calendar.js'
             ],
             refresh: true,
         }),
