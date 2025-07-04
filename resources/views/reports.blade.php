@@ -60,8 +60,8 @@
                 <div class="space-y-4 w-full">
                     <p class="text-center">Activity Heatmap</p>
 
-                    <div class="w-full overflow-x-auto">
-                        <div id="heatmap" class="mx-auto min-w-[300px] max-w-full"></div>
+                    <div class="w-full overflow-x-auto text-center">
+                        <div id="heatmap" class="mx-auto min-w-[300px] max-w-full inline-block"></div>
                     </div>
                 </div>
             </x-content-card>
