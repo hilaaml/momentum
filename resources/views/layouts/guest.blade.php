@@ -27,37 +27,53 @@
         </div>
 
         <!-- Sidebar -->
-        <div class="order-2 md:order-1 w-full md:w-1/3 h-[50vh] md:h-screen overflow-y-scroll scrollbar-hidden p-10 space-y-6 bg-white items-center flex flex-col justify-center">
+        <div class="order-2 md:order-1 w-full md:w-1/3 h-[50vh] md:h-screen p-10 space-y-4 bg-white items-center flex flex-col justify-center">
 
-            <div class="shadow-lg rounded-lg overflow-hidden">
-                <img src="{{ asset('images/fitur1.jpg') }}" alt="Dashboard Overview" class="w-full">
+            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
+                    <path d="M4 4h16v16H4z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8 4v16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-gray-800 text-sm">Dashboard Overview</span>
             </div>
 
-            <div class="shadow-lg rounded-lg overflow-hidden">
-                <img src="{{ asset('images/fitur2.jpg') }}" alt="Project Time Tracker" class="w-full">
+            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-gray-800 text-sm">Project Time Tracker</span>
             </div>
 
-            <div class="shadow-lg rounded-lg overflow-hidden">
-                <img src="{{ asset('images/fitur3.jpg') }}" alt="Task Checklist" class="w-full">
+            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
+                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-gray-800 text-sm">Task Checklist</span>
             </div>
 
-            <div class="shadow-lg rounded-lg overflow-hidden">
-                <img src="{{ asset('images/fitur3.jpg') }}" alt="Streak" class="w-full">
+            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-gray-800 text-sm">Streak</span>
             </div>
 
-            <div class="shadow-lg rounded-lg overflow-hidden">
-                <img src="{{ asset('images/fitur3.jpg') }}" alt="Visual Reports & Heatmap" class="w-full">
+            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
+                    <path d="M4 19h16M8 13v6M12 10v9M16 6v13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-gray-800 text-sm">Visual Reports & Heatmap</span>
             </div>
 
-            <div class="shadow-lg rounded-lg overflow-hidden">
-                <img src="{{ asset('images/fitur3.jpg') }}" alt="Calendar-based Journal" class="w-full">
+            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
+                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-gray-800 text-sm">Calendar-based Journal</span>
             </div>
         </div>
 
     </div>
 </body>
-
-
-
 
 </html>
