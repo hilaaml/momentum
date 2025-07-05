@@ -16,11 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->longText('content');
-            $table->string('image')->nullable(); // nama file gambar
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
