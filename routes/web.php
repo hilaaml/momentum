@@ -11,6 +11,7 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimeLogController;
+use App\Http\Controllers\Auth\SocialiteController;
 
 
 /*
@@ -30,6 +31,10 @@ Route::get('/', function () {
     }
     return view('welcome');
 });
+
+// Socialite routes
+Route::get('auth/{provider}', [SocialiteController::class, 'redirectToProvider'])->name('socialite.redirect');
+Route::get('auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback'])->name('socialite.callback');
 
 Route::middleware('auth')->group(function () {
 
