@@ -1,6 +1,4 @@
 <x-app-layout>
-    <x-header title="Settings" />
-
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             {{-- flex untuk responsif dan space antar card --}}
