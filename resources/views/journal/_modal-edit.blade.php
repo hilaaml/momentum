@@ -9,10 +9,14 @@
             Edit - {{ $selectedDayLabel }}
         </h2>
 
-
-        <textarea name="content"
-            class="w-full border dark:bg-gray-700 dark:text-white p-2 rounded text-sm"
-            rows="5">{{ old('content', $selectedJournal->content) }}</textarea>
+        <div>
+            <textarea name="content"
+                class="w-full border dark:bg-gray-700 dark:text-white p-2 rounded text-sm"
+                rows="5" required>{{ old('content', $selectedJournal->content) }}</textarea>
+            @error('content')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
         @if ($selectedJournal->image_path)
         <div>
@@ -22,7 +26,11 @@
         @endif
 
         <div>
-            <input type="file" name="image" class="dark:text-white text-sm">
+            <input type="file" name="image" class="dark:text-white text-sm" accept="image/jpeg,image/jpg,image/png,image/webp">
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Allowed formats: JPG, JPEG, PNG, WEBP (max 5MB)</p>
+            @error('image')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="flex justify-end pt-4 border-t dark:border-gray-700 gap-2">

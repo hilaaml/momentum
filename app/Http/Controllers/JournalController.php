@@ -103,7 +103,7 @@ class JournalController extends Controller
         $request->validate([
             'date' => 'required|date',
             'content' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // max 5MB
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120', // max 5MB
         ]);
 
         $user = Auth::user();
@@ -149,7 +149,7 @@ class JournalController extends Controller
 
         $request->validate([
             'content' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg|max:5120',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
         $data = [
