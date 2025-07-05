@@ -3,7 +3,7 @@
 <div x-data="{ open:false }" class="relative">
     <button x-on:click="open = !open"
         class="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-        &#8942;
+        <span class="text-gray-600 dark:text-gray-300">⋮</span>
     </button>
 
     <div x-show="open" x-transition x-on:click.away="open = false"
@@ -11,13 +11,13 @@
                 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-10">
         <button
             x-on:click="$dispatch('open-modal', 'edit-task-{{ $task->id }}'); open = false"
-            class="w-full px-3 py-2 text-left text-xs hover:bg-gray-100 dark:hover:bg-gray-700">
-            Edit
+            class="w-full px-3 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+            edit
         </button>
         <button
             x-on:click="$dispatch('open-modal', 'delete-task-{{ $task->id }}'); open = false"
-            class="w-full px-3 py-2 text-left text-xs text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-            Delete
+            class="w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+            delete
         </button>
     </div>
 
@@ -26,7 +26,7 @@
         <form method="POST" action="{{ route('tasks.update', $task) }}" class="pb-6 pt-3 px-6 space-y-3">
             @csrf @method('PATCH')
 
-            <h2>Edit Task</h2>
+            <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">Edit Task</h2>
 
             <div>
                 <x-text-input
@@ -49,7 +49,7 @@
         <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="pb-6 pt-3 px-6 space-y-3">
             @csrf @method('DELETE')
 
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Delete task</h2>
+            <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">Delete task</h2>
 
             <p class="text-sm text-gray-600 dark:text-gray-400">
                 Are you sure you want to delete this task (<strong>{{ $task->name }}</strong>) ?

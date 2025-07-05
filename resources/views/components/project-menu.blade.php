@@ -35,7 +35,7 @@
             @csrf
             <input type="hidden" name="project_id" value="{{ $project->id }}" />
 
-            <h2>add new task to <strong>{{ $project->name }}</strong></h2>
+            <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">add new task to <strong>{{ $project->name }}</strong></h2>
 
             <div>
                 <x-text-input id="task-name-{{ $project->id }}" name="name"
@@ -54,7 +54,7 @@
         <form method="POST" action="{{ route('projects.update', $project) }}" class="pb-6 pt-3 px-6 space-y-3">
             @csrf @method('PATCH')
 
-            <h2>edit project name</h2>
+            <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">edit project name</h2>
 
             <div>
                 <x-text-input id="project-name-{{ $project->id }}" name="name"
@@ -72,10 +72,8 @@
     <x-modal name="delete-project-{{ $project->id }}" :show="false" focusable>
         <form method="POST" action="{{ route('projects.destroy', $project) }}" class="pb-6 pt-3 px-6 space-y-3">
             @csrf @method('DELETE')
-            <h2>Delete Project</h2>
-            <p>
-                Are you sure, you want to delete <strong>{{ $project->name }}</strong>? All the data will be deleted.
-            </p>
+            <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">delete project</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Are you sure, you want to delete <strong>{{ $project->name }}</strong>? All the data will be deleted.</p>
             <div class="flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">Cancel</x-secondary-button>
                 <x-danger-button class="ml-2">Delete</x-danger-button>
