@@ -107,6 +107,12 @@ class JournalController extends Controller
         ]);
 
         $user = Auth::user();
+        
+        // Check if the date is in the future
+        $journalDate = Carbon::parse($request->date)->startOfDay();
+        if ($journalDate->isFuture()) {
+            return redirect()->route('journal.index')->with('error', 'Cannot create journal entries for future dates.');
+        }
 
         $existing = Journal::where('user_id', $user->id)
             ->whereDate('date', $request->date)
