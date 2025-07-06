@@ -27,11 +27,3 @@
         </div>
     </form>
 </x-modal>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        window.dispatchEvent(new CustomEvent('open-modal', {
-            detail: 'create-journal'
-        }));
-    });
-</script>
