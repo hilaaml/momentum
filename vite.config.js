@@ -9,7 +9,9 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/heatmap-init.js',
                 'resources/js/timers.js',
-                'resources/js/journal-calendar.js'
+                'resources/js/journal-calendar.js',
+                'resources/js/reportCharts.js',
+                'resources/js/form-validation.js'
             ],
             refresh: true,
         }),
