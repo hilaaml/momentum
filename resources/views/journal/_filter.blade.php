@@ -18,7 +18,7 @@
             @endforeach
         </select>
 
-        <select name="year" class="border rounded p-1 dark:bg-gray-800 dark:text-white">
+        <select name="year" class="border rounded p-1 pr-8 dark:bg-gray-800 dark:text-white">
             @for ($y = now()->year - 5; $y <= now()->year + 2; $y++)
                 <option value="{{ $y }}" {{ $y == $year ? 'selected' : '' }}>{{ $y }}</option>
                 @endfor

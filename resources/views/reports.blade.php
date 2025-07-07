@@ -51,17 +51,17 @@
             {{-- Most Active Day --}}
             <x-content-card centerXY>
                 <div class="space-y-4 w-full">
-                    <p>Most Active Day: <strong>{{ ucfirst($mostActiveDay) }}</strong></p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Most Active Day: <strong>{{ ucfirst($mostActiveDay) }}</strong></p>
                     <canvas id="activeDaysChart" class="w-full h-[200px]"></canvas>
                 </div>
             </x-content-card>
 
             <x-content-card centerXY>
                 <div class="space-y-4 w-full">
-                    <p class="text-center">Activity Heatmap</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Activity Heatmap</p>
 
-                    <div class="w-full overflow-x-auto">
-                        <div id="heatmap" class="mx-auto min-w-[300px] max-w-full"></div>
+                    <div class="w-full overflow-x-auto text-center">
+                        <div id="heatmap" class="mx-auto min-w-[300px] max-w-full inline-block"></div>
                     </div>
                 </div>
             </x-content-card>
@@ -69,7 +69,7 @@
 
             <x-content-card centerXY>
                 <div class="space-y-4 w-full">
-                    <p>Most Active Hour:
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Most Active Hour:
                         <strong>{{ $mostActiveHour }}:00–{{ (int)$mostActiveHour + 1 }}:00</strong>
                     </p>
                     <canvas id="hourlyChart" class="w-full h-[200px]"></canvas>
@@ -78,7 +78,7 @@
 
             <x-content-card centerXY>
                 <div class="space-y-4 w-full text-center">
-                    <p>Top Time-Consuming Project:
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Top Time-Consuming Project:
                         <strong>{{ $topProject?->name ?? '—' }}</strong>
                         ({{ \Carbon\CarbonInterval::seconds($topProjectSeconds)->cascade()->forHumans() }})
                     </p>
@@ -90,7 +90,7 @@
         </div>
 
         <x-content-card>
-            <p class="pb-3">Activity Timeline</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300 pb-3">Activity Timeline</p>
             <x-timeline-table :logs="$allLogs" class="h-[500px] overflow-y-auto" />
         </x-content-card>
 
