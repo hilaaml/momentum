@@ -10,8 +10,8 @@
         @foreach ($weeks as $week)
         <tr>
             @foreach ($week as $day)
-            <td class="h-20 border p-1 align-top relative cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
-                @if ($day['inMonth']) onclick="redirectToDate('{{ $day['date']->toDateString() }}')" @endif>
+            <td class="h-20 border p-1 align-top relative {{ $day['inMonth'] && $day['date']->isFuture() ? 'bg-gray-100 dark:bg-gray-800 opacity-60' : '' }} {{ $day['inMonth'] && !$day['date']->isFuture() ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : '' }}"
+                @if ($day['inMonth'] && !$day['date']->isFuture()) onclick="redirectToDate('{{ $day['date']->toDateString() }}')" @endif>
                 @if ($day['inMonth'])
                 {{-- Gambar thumbnail --}}
                 @if ($day['thumbnail'])
@@ -21,7 +21,7 @@
 
                 <div class="relative z-10 text-left text-xs text-white h-full flex flex-col justify-between">
                     {{-- Tanggal kecil di pojok kiri atas --}}
-                    <div class="px-1 pt-0.5 text-gray-900 dark:text-white font-bold">
+                    <div class="px-1 pt-0.5 {{ $day['date']->isFuture() ? 'text-gray-400 dark:text-gray-500' : 'text-gray-900 dark:text-white' }} font-bold">
                         {{ $day['date']->day }}
                     </div>
 

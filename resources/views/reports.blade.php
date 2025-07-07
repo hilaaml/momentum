@@ -24,8 +24,11 @@
                 @foreach (['from' => 'From', 'to' => 'To'] as $field => $label)
                 <div class="flex flex-col">
                     <label class="text-sm text-gray-700 dark:text-gray-300">{{ $label }}:</label>
+                    @php
+                        $defaultDate = $field === 'from' ? $from : $to;
+                    @endphp
                     <input type="date" name="{{ $field }}"
-                        value="{{ request($field) ?? now()->{ $field === 'from' ? 'startOfMonth' : 'now' }()->toDateString() }}"
+                        value="{{ request($field, $defaultDate->toDateString()) }}"
                         class="rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white px-1 py-1 text-xs">
                 </div>
                 @endforeach

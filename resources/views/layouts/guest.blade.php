@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="overflow-hidden">
 
 <head>
     <meta charset="utf-8">
@@ -14,65 +14,48 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 400% 400%;
+            animation: gradientMove 60s ease-in-out infinite;
+        }
+        .mesh-gradient {
+            background: radial-gradient(at 15% 20%, #1e1b4b 0%, transparent 80%),
+                        radial-gradient(at 75% 20%, #172554 0%, transparent 75%),
+                        radial-gradient(at 25% 80%, #312e81 0%, transparent 75%),
+                        radial-gradient(at 80% 90%, #0f172a 0%, transparent 85%);
+            background-blend-mode: screen;
+            background-size: 200% 200%;
+            animation: gradientMove 80s ease-in-out infinite;
+        }
+        .dark .mesh-gradient {
+            background: radial-gradient(at 15% 20%, #0b1120 0%, transparent 80%),
+                        radial-gradient(at 75% 20%, #0f172a 0%, transparent 75%),
+                        radial-gradient(at 25% 80%, #1e1b4b 0%, transparent 75%),
+                        radial-gradient(at 80% 90%, #111827 0%, transparent 85%);
+        }
+    </style>
 </head>
 
-<body class="min-h-screen bg-white">
-    <div class="flex flex-col md:flex-row min-h-screen ">
-
-        <div class="order-1 md:order-2 w-full md:w-2/3 bg-gray-100 flex flex-col p-10 justify-center items-center">
-            <div class="w-full max-w-xl flex flex-col p-10 justify-center items-center bg-blue-600 shadow-lg rounded-lg 
-                transition-all duration-500 opacity-0 transform -translate-x-10 animate-slide-in">
+<body class="relative min-h-screen bg-white overflow-hidden">
+    <div class="flex justify-center items-center min-h-screen p-6">
+        <!-- Left side - Form -->
+        <div class="w-full max-w-md bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg p-8 md:p-12 text-center">
+            <div class="w-full max-w-md text-center">
                 {{ $slot }}
             </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="order-2 md:order-1 w-full md:w-1/3 h-[50vh] md:h-screen p-10 space-y-4 bg-white items-center flex flex-col justify-center">
-
-            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
-                    <path d="M4 4h16v16H4z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M8 4v16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span class="text-gray-800 text-sm">Dashboard Overview</span>
-            </div>
-
-            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span class="text-gray-800 text-sm">Project Time Tracker</span>
-            </div>
-
-            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
-                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span class="text-gray-800 text-sm">Task Checklist</span>
-            </div>
-
-            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
-                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span class="text-gray-800 text-sm">Streak</span>
-            </div>
-
-            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
-                    <path d="M4 19h16M8 13v6M12 10v9M16 6v13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span class="text-gray-800 text-sm">Visual Reports & Heatmap</span>
-            </div>
-
-            <div class="flex items-center p-3 rounded-lg bg-white w-full max-w-xs border border-gray-100">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-blue-600 mr-2">
-                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span class="text-gray-800 text-sm">Calendar-based Journal</span>
-            </div>
+        <!-- Right side - Gradient background -->
+        <div class="absolute inset-0 mesh-gradient -z-10">
+            <!-- Decorative elements could be added here -->
         </div>
-
     </div>
 </body>
 

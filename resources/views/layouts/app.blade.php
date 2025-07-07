@@ -23,7 +23,8 @@
     'resources/js/timers.js',
     'resources/css/app.css',
     'resources/js/reportCharts.js',
-    'resources/js/journal-calendar.js'
+    'resources/js/journal-calendar.js',
+    'resources/js/form-validation.js'
     ])
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>

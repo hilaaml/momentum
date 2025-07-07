@@ -6,7 +6,7 @@
            p-4 flex flex-col justify-between text-sm text-gray-700 dark:text-gray-300 transition-all duration-500 overflow-y-auto">
 
     <div class="flex flex-col items-end gap-6 transition-all duration-300">
-
+        <!-- Toggle button stays at the top right -->
         <x-nav-btn
             @click="toggle()"
             aria-label="Toggle sidebar"
@@ -30,28 +30,24 @@
                 </div>
             </template>
         </x-nav-btn>
-
-        <nav class="flex flex-col gap-6">
-            <x-nav-link href="{{ route('dashboard') }}" class="hover:text-indigo-600">
+        <nav class="flex flex-col gap-6 w-full max-w-xs self-end text-left">
+            <x-nav-link href="{{ route('dashboard') }}" class="hover:text-indigo-600 flex">
                 <x-icon.logo class="w-5 h-5" />
-                <span x-show="expanded" x-transition.opacity>Dashboard</span>
+                <span x-show="expanded" x-transition.opacity class="ml-2">Dashboard</span>
             </x-nav-link>
-
-            <x-nav-link href="{{ route('reports') }}" class="hover:text-indigo-600">
+            <x-nav-link href="{{ route('reports') }}" class="hover:text-indigo-600 flex">
                 <svg {{ $attributes }} fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
                     <path d="M4 19h16M8 13v6M12 10v9M16 6v13"
                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-
-                <span x-show="expanded" x-transition.opacity>Reports</span>
+                <span x-show="expanded" x-transition.opacity class="ml-2">Reports</span>
             </x-nav-link>
-
-            <x-nav-link href="{{ route('journal.index') }}" class="hover:text-indigo-600">
+            <x-nav-link href="{{ route('journal.index') }}" class="hover:text-indigo-600 flex">
                 <svg {{ $attributes }} fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
                     <path d="M4 4h16v16H4z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     <path d="M8 4v16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <span x-show="expanded" x-transition.opacity>Journal</span>
+                <span x-show="expanded" x-transition.opacity class="ml-2">Journal</span>
             </x-nav-link>
         </nav>
     </div>

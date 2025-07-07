@@ -103,10 +103,16 @@ class JournalController extends Controller
         $request->validate([
             'date' => 'required|date',
             'content' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // max 5MB
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120', // max 5MB
         ]);
 
         $user = Auth::user();
+        
+        // Check if the date is in the future
+        $journalDate = Carbon::parse($request->date)->startOfDay();
+        if ($journalDate->isFuture()) {
+            return redirect()->route('journal.index')->with('error', 'Cannot create journal entries for future dates.');
+        }
 
         $existing = Journal::where('user_id', $user->id)
             ->whereDate('date', $request->date)
@@ -149,7 +155,7 @@ class JournalController extends Controller
 
         $request->validate([
             'content' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg|max:5120',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
         $data = [

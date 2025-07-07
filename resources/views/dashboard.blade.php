@@ -10,7 +10,7 @@
                     <button
                         x-data
                         x-on:click="$dispatch('open-modal', 'timeline-modal')"
-                        class="text-indigo-600 hover:underline text-sm">
+                        class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm">
                         timeline &rarr;
                     </button>
                     <x-modal name="timeline-modal" :show="false">
@@ -39,7 +39,7 @@
             </ul>
 
             @empty
-            <p class="py-4 text-center text-gray-500 dark:text-gray-300">You haven’t created any projects.</p>
+            <p class="py-4 text-center text-gray-500 dark:text-gray-300">You haven't created any projects.</p>
             @endforelse
 
             <div class="flex justify-end">
