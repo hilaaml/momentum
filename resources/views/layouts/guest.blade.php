@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="overflow-hidden">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -14,48 +14,31 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .animate-gradient {
-            background-size: 400% 400%;
-            animation: gradientMove 60s ease-in-out infinite;
-        }
-        .mesh-gradient {
-            background: radial-gradient(at 15% 20%, #1e1b4b 0%, transparent 80%),
-                        radial-gradient(at 75% 20%, #172554 0%, transparent 75%),
-                        radial-gradient(at 25% 80%, #312e81 0%, transparent 75%),
-                        radial-gradient(at 80% 90%, #0f172a 0%, transparent 85%);
-            background-blend-mode: screen;
-            background-size: 200% 200%;
-            animation: gradientMove 80s ease-in-out infinite;
-        }
-        .dark .mesh-gradient {
-            background: radial-gradient(at 15% 20%, #0b1120 0%, transparent 80%),
-                        radial-gradient(at 75% 20%, #0f172a 0%, transparent 75%),
-                        radial-gradient(at 25% 80%, #1e1b4b 0%, transparent 75%),
-                        radial-gradient(at 80% 90%, #111827 0%, transparent 85%);
-        }
-    </style>
 </head>
 
-<body class="relative min-h-screen bg-white overflow-hidden">
-    <div class="flex justify-center items-center min-h-screen p-6">
-        <!-- Left side - Form -->
-        <div class="w-full max-w-md bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg p-8 md:p-12 text-center">
-            <div class="w-full max-w-md text-center">
-                {{ $slot }}
+<body class="min-h-screen bg-pink-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 lg:overflow-hidden md:overflow-auto">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+
+        <!-- Slot content -->
+        <div class="order-1 md:order-2 w-full md:w-2/3 bg-pink-100 dark:bg-gray-800 flex justify-center items-center p-6 lg:py-16">
+            <div class="w-full max-w-xl bg-pink-300 dark:bg-pink-700 text-pink-900 dark:text-white shadow-lg rounded-lg 
+                p-10 transition-all duration-500 opacity-0 transform -translate-x-5 animate-slide-in overflow-auto lg:max-h-[70vh]">
+                <div class="flex flex-col justify-center items-center">{{ $slot }}</div>
             </div>
         </div>
 
-        <!-- Right side - Gradient background -->
-        <div class="absolute inset-0 mesh-gradient -z-10">
-            <!-- Decorative elements could be added here -->
+        <!-- Fitur gambar -->
+        <div class="order-2 md:order-1 w-full md:w-1/3 h-[50vh] md:h-screen p-10 space-y-6 bg-white dark:bg-gray-900 flex flex-col justify-center items-center overflow-y-auto">
+            @foreach (['fitur1.jpg', 'fitur2.jpg', 'fitur3.jpg'] as $image)
+            @for ($i = 0; $i < 2; $i++)
+                <div class="shadow-lg rounded-lg overflow-hidden">
+                <img src="{{ asset('images/' . $image) }}" alt="Feature {{ $loop->iteration }}" class="w-full">
         </div>
+        @endfor
+        @endforeach
+    </div>
+
     </div>
 </body>
 

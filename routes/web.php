@@ -28,7 +28,8 @@ use App\Http\Controllers\{
 Route::get('/', function () {
     return Auth::check()
         ? redirect()->route('dashboard')
-        : redirect()->route('login');
+        // : redirect()->route('login');
+        : view('welcome');
 });
 
 // Socialite

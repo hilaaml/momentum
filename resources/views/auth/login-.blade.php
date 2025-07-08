@@ -1,47 +1,55 @@
 <x-guest-layout>
-    <h1 class="text-xl font-bold text-center text-white">Login to your Momentum account</h1>
+    <h1 class="text-4xl font-bold mb-2 text-indigo-700 dark:text-indigo-400">Log in to your momentum account</h1>
 
-    {{-- Session Status --}}
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    {{-- Login Form --}}
-    <form method="POST" action="{{ route('login') }}" class="w-full max-w-md space-y-6">
+    <form method="POST" action="{{ route('login') }}" class="w-full space-y-4">
         @csrf
 
         {{-- Email --}}
         <div class="w-full">
-            <x-input-label for="email" :value="__('Email')" class="text-white" />
-            <x-text-input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="block mt-1 w-full" />
+            <x-text-input id="email"
+                name="email"
+                type="email"
+                value="{{ old('email') }}"
+                required autofocus autocomplete="username"
+                placeholder="Email"
+                class="block w-full" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         {{-- Password --}}
         <div>
-            <x-input-label for="password" :value="__('Password')" class="text-white" />
-            <x-text-input id="password" name="password" type="password" required autocomplete="current-password" class="block mt-1 w-full" />
+            <x-text-input id="password"
+                name="password"
+                type="password"
+                required autocomplete="current-password"
+                placeholder="Password"
+                class="block w-full" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        {{-- Remember Me --}}
-        <div>
+        {{-- Remember --}}
+        <div class="flex justify-start">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" name="remember" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                <span class="ml-2 text-sm text-white">Remember me</span>
+                <input id="remember_me" type="checkbox"
+                    name="remember"
+                    class="rounded border-gray-300 text-indigo-600 dark:text-indigo-400 shadow-sm focus:ring-indigo-500">
+                <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">Remember me</span>
             </label>
         </div>
 
-        {{-- Submit & Forgot --}}
-        <div class="flex items-center justify-between pt-4">
-            @if (Route::has('password.request'))
-            <a href="{{ route('password.request') }}" class="text-sm underline text-white hover:text-gray-200">
+        {{-- Submit --}}
+        <x-primary-button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-all">
+            Sign in
+        </x-primary-button>
+        @if (Route::has('password.request'))
+        <div class="mt-4 text-center">
+            <a href="{{ route('password.request') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-indigo-600">
                 Forgot your password?
             </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
+        @endif
     </form>
 
     <div class="my-6 relative">
@@ -69,5 +77,15 @@
                 <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.744.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.289-1.552 3.295-1.23 3.295-1.23.653 1.653.241 2.873.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 21.796 24 17.298 24 12c0-6.627-5.373-12-12-12z" />
             </svg>
         </a>
+    </div>
+
+    {{-- Forgot Password --}}
+    <div class="mt-6 text-center">
+        @if (Route::has('password.request'))
+        <a href="{{ route('register') }}"
+            class="text-sm text-gray-500 dark:text-gray-400 hover:text-indigo-600">
+            Don’t have an account? Sign up
+        </a>
+        @endif
     </div>
 </x-guest-layout>
