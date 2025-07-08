@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $streak = $user->getStreakDays();
 
 
-        return view('dashboard', compact(
+        return view('dashboard.index', compact(
             'projects',
             'totalTodayInSeconds',
             'todayLogs',

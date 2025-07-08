@@ -13,5 +13,5 @@
         {{ $task->name }}
     </span>
 
-    <x-task-menu :task="$task" />
+    @include('dashboard._task-menu', ['task' => $task])
 </li>
