@@ -85,7 +85,7 @@ class ReportController extends Controller
         $ownedCharacters = $user->characters()->get();
 
 
-        return view('reports', compact(
+        return view('reports.index', compact(
             'from',
             'to',
             'totalSeconds',
