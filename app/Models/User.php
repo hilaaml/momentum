@@ -29,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'streak_minimum_seconds',
     ];
 
     /**
@@ -95,22 +96,27 @@ class User extends Authenticatable
         );
     }
 
-    // Hitung streak hari berturut-turut
     public function getStreakDays(): int
     {
-        $dates = $this->timeLogs()
+        $minSeconds = $this->streak_minimum_seconds ?? 1; // default fallback
+
+        // Ambil total durasi per hari 30 hari ke belakang
+        $dailyDurations = $this->timeLogs()
             ->whereNotNull('end_time')
-            ->selectRaw('DATE(start_time) as d')
+            ->whereDate('start_time', '>=', now()->subDays(30))
+            ->selectRaw('DATE(start_time) as d, SUM(TIMESTAMPDIFF(SECOND, start_time, end_time)) as total')
             ->groupBy('d')
             ->orderByDesc('d')
-            ->pluck('d')
-            ->map(fn($d) => \Carbon\Carbon::parse($d));
+            ->pluck('total', 'd');
 
         $streak = 0;
-        $cursor = \Carbon\Carbon::today();
+        $cursor = now()->startOfDay();
 
-        foreach ($dates as $day) {
-            if ($day->equalTo($cursor)) {
+        for ($i = 0; $i < 30; $i++) {
+            $date = $cursor->toDateString();
+            $seconds = (int) ($dailyDurations[$date] ?? 0);
+
+            if ($seconds >= $minSeconds) {
                 $streak++;
                 $cursor->subDay();
             } else {
@@ -120,6 +126,7 @@ class User extends Authenticatable
 
         return $streak;
     }
+
 
     // Total detik aktivitas hari ini
     public function getTodaySecondsAttribute(): int

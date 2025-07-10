@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
     Route::get('/timeline', [TimeLogController::class, 'index'])->name('timeline');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/dashboard/streak-config', [DashboardController::class, 'updateStreakConfig'])->name('dashboard.streak-config');
 
     // Projects
     Route::resource('projects', ProjectController::class)->except(['index', 'show']);
@@ -67,4 +70,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

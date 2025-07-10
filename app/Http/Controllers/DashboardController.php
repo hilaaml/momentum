@@ -29,6 +29,7 @@ class DashboardController extends Controller
             }
         }
 
+
         $unlockedCharacters = $user->characters;
 
 
@@ -40,5 +41,18 @@ class DashboardController extends Controller
             'streak',
             'unlockedCharacters'
         ));
+    }
+
+    public function updateStreakConfig(Request $request)
+    {
+        $request->validate([
+            'streak_minute_input' => 'required|integer|min:1',
+        ]);
+
+        $user = auth()->user();
+        $user->streak_minimum_seconds = $request->streak_minute_input * 60;
+        $user->save();
+
+        return redirect()->route('dashboard')->with('success', 'Streak configuration updated.');
     }
 }
