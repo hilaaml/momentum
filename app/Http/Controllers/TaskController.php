@@ -18,6 +18,17 @@ class TaskController extends Controller
         $task->is_done = !$task->is_done;
         $task->save();
 
+        // Update user's coins based on task completion state
+        $user = auth()->user();
+        if ($task->is_done) {
+            // Award 1 coin for completing a task
+            $user->coins += 1;
+        } else {
+            // If task is marked as not done, remove the previously awarded coin (but not below zero)
+            $user->coins = max(0, $user->coins - 1);
+        }
+        $user->save();
+
         return back();
     }
     public function store(Request $request)

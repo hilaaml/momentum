@@ -31,6 +31,7 @@ class User extends Authenticatable
         'password',
         'streak_minimum_seconds',
         'coins', // tambahkan ini
+        'coin_seconds_balance',
     ];
 
     /**

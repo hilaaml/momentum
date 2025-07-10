@@ -37,7 +37,24 @@ class TimeLogController extends Controller
             ->first();
 
         if ($log) {
-            $log->update(['end_time' => now()]);
+            // Set end time first
+            $log->end_time = now();
+            $log->save();
+
+            // Calculate duration in seconds
+            $seconds = $log->start_time->diffInSeconds($log->end_time);
+
+            // Convert duration to coins (1 hour = 1 coin) while carrying leftover seconds
+            $user = auth()->user();
+            $totalSeconds = $user->coin_seconds_balance + $seconds;
+            $coinsEarned = intdiv($totalSeconds, 3600); // floor division
+            $user->coin_seconds_balance = $totalSeconds % 3600;
+
+            if ($coinsEarned > 0) {
+                $user->coins += $coinsEarned;
+            }
+
+            $user->save();
         }
 
         return back();

@@ -24,11 +24,5 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') != 'local') {
             \URL::forceScheme('https');
         }
-
-        view()->composer('*', function () {
-            if (Auth::check()) {
-                Auth::user()->recalculateCoins();
-            }
-        });
     }
 }
