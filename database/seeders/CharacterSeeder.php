@@ -32,8 +32,8 @@ class CharacterSeeder extends Seeder
                 'required_seconds' => 43200, // 12 jam
             ],
             [
-                'name' => 'Tung Cat',
-                'image' => 'tung_cat.png',
+                'name' => 'Tung Hamster',
+                'image' => 'tung_hamster.png',
                 'required_seconds' => 43200, // 12 jam
             ],
         ];

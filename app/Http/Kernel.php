@@ -68,6 +68,6 @@ class Kernel extends HttpKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new \App\Jobs\CheckCharacterUnlock)->hourly();
+        //
     }
 }
