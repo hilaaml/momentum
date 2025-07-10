@@ -78,6 +78,11 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
+    public function characters()
+    {
+        return $this->belongsToMany(Character::class)->withTimestamps();
+    }
+
     public function timeLogs()
     {
         return $this->hasManyThrough(
@@ -123,5 +128,12 @@ class User extends Authenticatable
             ->whereDate('start_time', now())
             ->selectRaw('COALESCE(SUM(IFNULL(TIMESTAMPDIFF(SECOND, start_time, end_time), TIMESTAMPDIFF(SECOND, start_time, NOW()))),0) AS sec')
             ->value('sec');
+    }
+
+    public function totalTrackedSeconds()
+    {
+        return \DB::table('projects')
+            ->where('user_id', $this->id)
+            ->sum('total_seconds');
     }
 }

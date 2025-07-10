@@ -2,35 +2,49 @@
 
     <div class="py-3 mx-auto flex flex-col space-y-6 ">
 
-        <x-content-card>
-            <div class="flex justify-between items-center">
-                <div>
-                    @include('dashboard._timer-display', ['seconds' => $totalTodayInSeconds])
+        <div>
+            @if ($unlockedCharacters->count())
+            @php
+            $character = $unlockedCharacters->last();
+            @endphp
 
-                    <button
-                        x-data
-                        x-on:click="$dispatch('open-modal', 'timeline-modal')"
-                        class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm">
-                        timeline &rarr;
-                    </button>
-                    <x-modal name="timeline-modal" :show="false">
-                        <div class="p-6 space-y-4">
-                            <h2> Today Work Log </h2>
-                            <x-timeline-table :logs="$todayLogs" />
-                            <div class="flex justify-end">
-                                <x-secondary-button x-on:click="$dispatch('close')">Close</x-secondary-button>
-                            </div>
-                        </div>
-                    </x-modal>
-                </div>
-                
-                <div class="text-center">
-                    <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">Streak</h2>
-                    <p class="text-2xl text-green-500 font-bold">{{ $streak }}d</p>
-                </div>
-
+            <div class="flex justify-end  mr-4">
+                <img src="{{ asset('storage/' . $character->image_path) }}"
+                    alt="{{ $character->name }}"
+                    class="w-20 h-20 object-cover">
             </div>
-        </x-content-card>
+            @endif
+
+            {{-- Content card --}}
+            <x-content-card>
+                <div class="flex justify-between items-center">
+                    <div>
+                        @include('dashboard._timer-display', ['seconds' => $totalTodayInSeconds])
+
+                        <button
+                            x-data
+                            x-on:click="$dispatch('open-modal', 'timeline-modal')"
+                            class="text-indigo-600 dark:text-indigo-400 hover:underline text-sm">
+                            timeline &rarr;
+                        </button>
+                        <x-modal name="timeline-modal" :show="false">
+                            <div class="p-6 space-y-4">
+                                <h2> Today Work Log </h2>
+                                <x-timeline-table :logs="$todayLogs" />
+                                <div class="flex justify-end">
+                                    <x-secondary-button x-on:click="$dispatch('close')">Close</x-secondary-button>
+                                </div>
+                            </div>
+                        </x-modal>
+                    </div>
+
+                    <div class="text-center">
+                        <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">Streak</h2>
+                        <p class="text-2xl text-green-500 font-bold">{{ $streak }}d</p>
+                    </div>
+                </div>
+            </x-content-card>
+        </div>
 
         <x-content-card>
 

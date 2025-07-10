@@ -15,10 +15,21 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         $projects = auth()->user()->projects()->with('tasks')->get();
+
         $totalTodayInSeconds = $projects->sum->today_seconds;
         $todayLogs = $projects->flatMap->today_logs;
         $allLogs = $projects->flatMap->all_logs->sortByDesc('start_time');
         $streak = $user->getStreakDays();
+        $totalWorkInSeconds = $projects->sum('total_seconds');
+
+        $characters = \App\Models\Character::all();
+        foreach ($characters as $character) {
+            if ($totalWorkInSeconds >= $character->required_seconds && !$user->characters->contains($character->id)) {
+                $user->characters()->attach($character->id);
+            }
+        }
+
+        $unlockedCharacters = $user->characters;
 
 
         return view('dashboard.index', compact(
@@ -27,6 +38,7 @@ class DashboardController extends Controller
             'todayLogs',
             'allLogs',
             'streak',
+            'unlockedCharacters'
         ));
     }
 }
