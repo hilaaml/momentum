@@ -81,6 +81,10 @@ class ReportController extends Controller
             ->filter(fn($log) => $log->start_time >= $from && $log->start_time <= $to)
             ->sortByDesc('start_time');
 
+        $totalOwnedCharacters = auth()->user()->characters()->count();
+        $ownedCharacters = $user->characters()->get();
+
+
         return view('reports', compact(
             'from',
             'to',
@@ -97,7 +101,9 @@ class ReportController extends Controller
             'projectValues',
             'byDay',
             'byHour',
-            'allLogs'
+            'allLogs',
+            'totalOwnedCharacters',
+            'ownedCharacters'
         ));
     }
 }
