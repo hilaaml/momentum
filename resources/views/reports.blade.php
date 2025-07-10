@@ -25,7 +25,7 @@
                 <div class="flex flex-col">
                     <label class="text-sm text-gray-700 dark:text-gray-300">{{ $label }}:</label>
                     @php
-                        $defaultDate = $field === 'from' ? $from : $to;
+                    $defaultDate = $field === 'from' ? $from : $to;
                     @endphp
                     <input type="date" name="{{ $field }}"
                         value="{{ request($field, $defaultDate->toDateString()) }}"
@@ -44,12 +44,44 @@
             'Tracked Projects' => $trackedProjectCount,
             'Owned Character' => $totalOwnedCharacters,
             ] as $label => $value)
-            <div>
+            <div
+                @if ($label==='Owned Character' )
+                x-data
+                @click="$dispatch('open-modal', 'owned-character-modal')"
+                class="cursor-pointer"
+                @endif>
                 <p class="text-sm text-gray-600 dark:text-gray-300">{{ $label }}</p>
                 <strong class="text-lg text-indigo-600 dark:text-indigo-400">{{ $value }}</strong>
             </div>
             @endforeach
         </x-content-card>
+
+        <x-modal name="owned-character-modal" focusable>
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    {{ __('Owned Characters') }}
+                </h2>
+
+                <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    @foreach ($ownedCharacters as $character)
+                    <div class="text-center">
+                        <img src="{{ asset('storage/' . $character->image_path) }}"
+                            alt="{{ $character->name }}"
+                            class="w-20 h-20 object-cover mx-auto rounded">
+                        <p class="text-sm mt-2 text-gray-700 dark:text-gray-300">{{ $character->name }}</p>
+                    </div>
+                    @endforeach
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Close') }}
+                    </x-secondary-button>
+                </div>
+            </div>
+        </x-modal>
+
+
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             {{-- Most Active Day --}}
