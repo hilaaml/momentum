@@ -49,6 +49,14 @@
                 </svg>
                 <span x-show="expanded" x-transition.opacity class="ml-2">Journal</span>
             </x-nav-link>
+            <x-nav-link href="{{ route('rewards.index') }}" class="hover:text-indigo-600 flex">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
+                    <path d="M12 4v16m8-8H4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M6 20l3-3m9 3l-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span x-show="expanded" x-transition.opacity class="ml-2">Rewards</span>
+            </x-nav-link>
+
         </nav>
     </div>
 

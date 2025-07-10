@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('streak_minimum_seconds')->default(1)->after('remember_token'); // default 1 detik
+            $table->integer('coins')->default(0)->after('password');
         });
     }
 

@@ -30,6 +30,7 @@ class User extends Authenticatable
         'email',
         'password',
         'streak_minimum_seconds',
+        'coins', // tambahkan ini
     ];
 
     /**
@@ -125,6 +126,50 @@ class User extends Authenticatable
         }
 
         return $streak;
+    }
+
+    public function rewards()
+    {
+        return $this->hasMany(Reward::class);
+    }
+
+    public function getTotalCoins(): int
+    {
+        $seconds = $this->timeLogs()
+            ->whereNotNull('end_time')
+            ->sum(DB::raw('TIMESTAMPDIFF(SECOND, start_time, end_time)'));
+
+        $coinsFromTime = floor($seconds / 3600); // 1 jam = 1 coin
+
+        $coinsFromTasks = DB::table('tasks')
+            ->join('projects', 'tasks.project_id', '=', 'projects.id')
+            ->where('projects.user_id', $this->id)
+            ->where('tasks.is_done', true)
+            ->count(); // 1 task = 1 coin
+
+        $streakBonus = floor($this->getStreakDays() / 3) * 2; // tiap kelipatan 3 streak = +2 coin
+
+        return $coinsFromTime + $coinsFromTasks + $streakBonus;
+    }
+
+    public function recalculateCoins()
+    {
+        $seconds = $this->timeLogs()
+            ->whereNotNull('end_time')
+            ->sum(DB::raw('TIMESTAMPDIFF(SECOND, start_time, end_time)'));
+
+        $coinsFromTime = floor($seconds / 3600);
+
+        $coinsFromTasks = DB::table('tasks')
+            ->join('projects', 'tasks.project_id', '=', 'projects.id')
+            ->where('projects.user_id', $this->id)
+            ->where('tasks.is_done', true)
+            ->count();
+
+        $streakBonus = floor($this->getStreakDays() / 3) * 2;
+
+        $this->coins = $coinsFromTime + $coinsFromTasks + $streakBonus;
+        $this->save();
     }
 
 

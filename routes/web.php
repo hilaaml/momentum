@@ -13,6 +13,7 @@ use App\Http\Controllers\{
     JournalController,
     ProfileController,
     Auth\SocialiteController,
+    RewardController,
 };
 
 /*
@@ -44,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
     Route::get('/timeline', [TimeLogController::class, 'index'])->name('timeline');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
-    
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/dashboard/streak-config', [DashboardController::class, 'updateStreakConfig'])->name('dashboard.streak-config');
 
@@ -61,6 +62,13 @@ Route::middleware('auth')->group(function () {
 
     // Journal
     Route::resource('journal', JournalController::class)->names('journal');
+
+    //Rewards
+    Route::resource('rewards', RewardController::class)
+        ->only(['index', 'store', 'destroy'])
+        ->middleware('auth');
+    Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem'])->name('rewards.redeem');
+
 
     // Profile
     Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +24,11 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') != 'local') {
             \URL::forceScheme('https');
         }
+
+        view()->composer('*', function () {
+            if (Auth::check()) {
+                Auth::user()->recalculateCoins();
+            }
+        });
     }
 }
