@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="text-xl font-bold text-center mb-6 text-white">
+    <div class="text-xl font-bold text-center mb-6 text-gray-700 dark:text-white">
         create your momentum account
     </div>
 
@@ -8,36 +8,36 @@
 
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" class="text-white" />
+            <x-input-label for="name" :value="__('Name')" class="text-gray-700 dark:text-gray-200" />
             <x-text-input id="name" name="name" type="text"
-                class="block mt-1 w-full"
+                class="block mt-1 w-full bg-gray-100 border border-gray-300 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Email -->
         <div>
-            <x-input-label for="email" :value="__('Email')" class="text-white" />
+            <x-input-label for="email" :value="__('Email')" class="text-gray-700 dark:text-gray-200" />
             <x-text-input id="email" name="email" type="email"
-                class="block mt-1 w-full"
+                class="block mt-1 w-full bg-gray-100 border border-gray-300 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" class="text-white" />
+            <x-input-label for="password" :value="__('Password')" class="text-gray-700 dark:text-gray-200" />
             <x-text-input id="password" name="password" type="password"
-                class="block mt-1 w-full"
+                class="block mt-1 w-full bg-gray-100 border border-gray-300 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div>
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="text-white" />
+            <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="text-gray-700 dark:text-gray-200" />
             <x-text-input id="password_confirmation" name="password_confirmation" type="password"
-                class="block mt-1 w-full"
+                class="block mt-1 w-full bg-gray-100 border border-gray-300 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
@@ -52,7 +52,7 @@
         </div>
 
         <div class="flex flex-row gap-x-6 justify-center items-center w-full">
-            <a href="{{ route('socialite.redirect', 'google') }}" class="flex items-center justify-center bg-white dark:bg-gray-800 border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 p-3 rounded-full hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all">
+            <a href="{{ route('socialite.redirect', 'google') }}" class="flex items-center justify-center bg-gray-100 dark:bg-gray-800 border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 p-3 rounded-full hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all">
                 <svg width="28" height="28" viewBox="0 0 20 20">
                     <g>
                         <path fill="#4285F4" d="M19.6 10.23c0-.68-.06-1.36-.18-2H10v3.79h5.5c-.24 1.28-.97 2.37-2.06 3.09v2.56h3.34c1.96-1.81 3.09-4.48 3.09-7.44z" />
@@ -62,8 +62,8 @@
                     </g>
                 </svg>
             </a>
-            <a href="{{ route('socialite.redirect', 'github') }}" class="flex items-center justify-center bg-white dark:bg-gray-800 border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 p-3 rounded-full hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all">
-                <svg class="w-7 h-7" fill="#ffffff" viewBox="0 0 24 24">
+            <a href="{{ route('socialite.redirect', 'github') }}" class="flex items-center justify-center bg-gray-100 dark:bg-gray-800 border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 p-3 rounded-full hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all">
+                <svg class="w-7 h-7 fill-black dark:fill-white" viewBox="0 0 24 24">
                     <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.744.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.289-1.552 3.295-1.23 3.295-1.23.653 1.653.241 2.873.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 21.796 24 17.298 24 12c0-6.627-5.373-12-12-12z" />
                 </svg>
             </a>
@@ -72,7 +72,7 @@
         <!-- Already registered -->
         <div class="flex items-center justify-between pt-4">
             <a href="{{ route('login') }}"
-                class="underline text-sm text-white hover:text-gray-200">
+                class="underline text-sm text-gray-700 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-indigo-400">
                 Already registered?
             </a>
 

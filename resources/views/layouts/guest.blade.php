@@ -22,14 +22,14 @@
 
         <!-- Slot content -->
         <div class="order-1 md:order-2 w-full md:w-2/3 bg-white dark:bg-gray-800 flex justify-center items-center p-6 lg:py-16">
-            <div class="w-full max-w-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-lg rounded-lg 
-                p-10 transition-all duration-500 opacity-0 transform -translate-x-5 animate-slide-in overflow-auto lg:max-h-[90vh]">
-                <div class="flex flex-col justify-center items-center">{{ $slot }}</div>
-            </div>
+                <div class="w-full max-w-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-lg rounded-lg 
+                    p-10 transition-all duration-500 opacity-0 transform -translate-x-5 animate-slide-in overflow-auto lg:max-h-[90vh]">
+                    <div class="flex flex-col justify-center items-center">{{ $slot }}</div>
+                </div>
         </div>
 
         <!-- Fitur gambar -->
-        <div class="order-2 md:order-1 w-full md:w-1/3 h-[50vh] md:h-screen p-10 space-y-6 bg-white dark:bg-gray-900 flex flex-col justify-center items-center overflow-y-auto">
+                <div class="order-2 md:order-1 w-full md:w-1/3 h-[50vh] md:h-screen p-10 space-y-6 bg-gray-100 dark:bg-gray-900 flex flex-col justify-center items-center overflow-y-auto">
             @foreach (['fitur1.jpg', 'fitur2.jpg', 'fitur3.jpg'] as $image)
             @for ($i = 0; $i < 2; $i++)
                 <div class="shadow-lg rounded-lg overflow-hidden">

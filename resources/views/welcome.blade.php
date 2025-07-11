@@ -11,7 +11,7 @@
 <x-guest-layout>
 
     <div>
-        <h1 class="text-2xl font-bold text-center mb-4 text-white">
+        <h1 class="text-2xl font-bold text-center mb-4 text-gray-700 dark:text-white">
             welcome to momentum!
             <span class="inline-flex items-center">
                 <x-icon.logo class="w-5 h-5 inline-block align-middle" />
