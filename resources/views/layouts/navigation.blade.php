@@ -1,7 +1,6 @@
 <aside
-    x-data="sidebar()"
-    x-init="init()"
     x-cloak
+    :class="expanded ? 'w-[160px]' : 'w-[88px]'"
     class="h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700
            p-4 flex flex-col justify-between text-sm text-gray-700 dark:text-gray-300 transition-all duration-500 overflow-y-auto">
 

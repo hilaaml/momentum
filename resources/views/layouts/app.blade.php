@@ -34,14 +34,17 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen flex bg-gray-100 dark:bg-gray-900" x-data="sidebar()" x-init="init()">
         <!-- Sidebar -->
         <div class="fixed inset-y-0 left-0">
             @include('layouts.navigation')
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 ml-[88px]"> <!-- Default width when sidebar is collapsed -->
+        <div 
+            class="flex-1 transition-all duration-500" 
+            :class="expanded ? 'ml-[160px]' : 'ml-[88px]'" 
+        > <!-- Dynamic width based on sidebar state -->
             <main class="min-h-screen flex flex-col {{ Request::is('dashboard') || Request::is('journal*') ? 'justify-center' : '' }}">
                 <div class="w-full max-w-screen-xl px-5 sm:px-10 lg:px-20 mx-auto py-8">
                     {{ $slot }}
