@@ -41,10 +41,9 @@
         </div>
 
         <!-- Main Content -->
-        <div 
-            class="flex-1 transition-all duration-500" 
-            :class="expanded ? 'ml-[160px]' : 'ml-[88px]'" 
-        > <!-- Dynamic width based on sidebar state -->
+        <div
+            class="flex-1 transition-all duration-500"
+            :class="expanded ? 'ml-[150px]' : 'ml-[70px]'"> <!-- Dynamic width based on sidebar state -->
             <main class="min-h-screen flex flex-col {{ Request::is('dashboard') || Request::is('journal*') ? 'justify-center' : '' }}">
                 <div class="w-full max-w-screen-xl px-5 sm:px-10 lg:px-20 mx-auto py-8">
                     {{ $slot }}
