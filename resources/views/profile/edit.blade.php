@@ -21,7 +21,6 @@
                             transition-all duration-500 ease-in-out">
                     @include('profile.partials.delete-user-form')
                 </div>
-
             </div>
         </div>
     </div>
