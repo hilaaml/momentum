@@ -105,7 +105,9 @@ class JournalController extends Controller
             'monthYearLabel',
             'monthOptions',
             'selectedDayLabel',
-            'editMode'
+            'editMode',
+            'prevMonth',
+            'nextMonth',
         ));
     }
 
