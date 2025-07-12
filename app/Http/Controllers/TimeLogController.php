@@ -10,17 +10,20 @@ use Illuminate\Support\Facades\Log;
 
 class TimeLogController extends Controller
 {
+    // Mulai timer untuk sebuah project
     public function start(Project $project)
     {
         $userId = auth()->id();
+
+        // Pastikan project milik user
         abort_if($project->user_id !== $userId, 403);
 
-        // Hentikan log lain yang masih aktif
+        // Hentikan semua log aktif milik user lain
         TimeLog::whereHas('project', fn($q) => $q->where('user_id', $userId))
             ->whereNull('end_time')
             ->update(['end_time' => now()]);
 
-        // Buat log baru
+        // Buat time log baru
         TimeLog::create([
             'project_id' => $project->id,
             'start_time' => now(),
@@ -29,27 +32,35 @@ class TimeLogController extends Controller
         return back();
     }
 
+    // Hentikan timer aktif pada project
     public function stop(Project $project)
     {
+        // Ambil log aktif terakhir
         $log = $project->timeLogs()
             ->whereNull('end_time')
             ->latest('start_time')
             ->first();
 
         if ($log) {
-            // Set end time first
+            // Simpan waktu selesai log
             $log->end_time = now();
             $log->save();
 
-            // Calculate duration in seconds
+            // Hitung durasi dalam detik
             $seconds = $log->start_time->diffInSeconds($log->end_time);
 
-            // Convert duration to coins (1 hour = 1 coin) while carrying leftover seconds
             $user = auth()->user();
+
+            // Tambahkan ke saldo detik coin user
             $totalSeconds = $user->coin_seconds_balance + $seconds;
-            $coinsEarned = intdiv($totalSeconds, 3600); // floor division
+
+            // Hitung coin yang didapat (1 coin per jam)
+            $coinsEarned = intdiv($totalSeconds, 3600);
+
+            // Simpan sisa detik sebagai saldo
             $user->coin_seconds_balance = $totalSeconds % 3600;
 
+            // Tambahkan coin jika ada
             if ($coinsEarned > 0) {
                 $user->coins += $coinsEarned;
             }
