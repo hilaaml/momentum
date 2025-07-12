@@ -63,19 +63,24 @@ Route::middleware('auth')->group(function () {
     // Journal
     Route::resource('journal', JournalController::class)->names('journal');
 
-    //Rewards
+    // Rewards
     Route::resource('rewards', RewardController::class)
         ->only(['index', 'store', 'destroy'])
         ->middleware('auth');
     Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem'])->name('rewards.redeem');
 
 
-    // Profile
+    // Settings
     Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
         Route::get('/', 'edit')->name('edit');
         Route::patch('/', 'update')->name('update');
         Route::delete('/', 'destroy')->name('destroy');
     });
+    Route::middleware(['auth'])->get('/settings', function () {
+        return view('settings', [
+            'user' => auth()->user(),
+        ]);
+    })->name('settings');
 });
 
 require __DIR__ . '/auth.php';
