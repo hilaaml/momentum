@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 200 200"
     fill="currentColor"
-    {{ $attributes->merge(['class' => '']) }}>
+    {{ $attributes->merge(['class' => 'w-5 h-5']) }}>
 
     <circle cx="100" cy="100" r="100" fill="#000000" />
 

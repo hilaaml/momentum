@@ -33,24 +33,27 @@
     @stack('scripts')
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-gray-100 dark:bg-gray-900" x-data="sidebar()" x-init="init()">
-        <!-- Sidebar -->
-        <div class="fixed inset-y-0 left-0">
-            @include('layouts.navigation')
-        </div>
+<!-- layout utama (app.blade.php / x-app-layout) -->
 
-        <!-- Main Content -->
+<body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen flex flex-col" x-data="sidebar()" x-init="init()">
+
+        {{-- Include navigation (mobile top + desktop sidebar) --}}
+        @include('layouts.navigation')
+
+        {{-- Konten utama --}}
         <div
-            class="flex-1 transition-all duration-500"
-            :class="expanded ? 'ml-[150px]' : 'ml-[70px]'"> <!-- Dynamic width based on sidebar state -->
-            <main class="min-h-screen flex flex-col {{ Request::is('dashboard') || Request::is('journal*') ? 'justify-center' : '' }}">
-                <div class="w-full max-w-screen-xl px-5 sm:px-10 lg:px-20 mx-auto py-8">
+            class="flex-1 transition-all duration-500 flex flex-col"
+            :class="expanded ? 'md:ml-[150px]' : 'md:ml-[70px]'">
+
+            <main class="min-h-screen flex flex-col pt-0">
+                <div class="w-full max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] mx-auto px-4 py-8 pb-[80px] md:pb-8">
                     {{ $slot }}
                 </div>
             </main>
         </div>
     </div>
 </body>
+
 
 </html>
