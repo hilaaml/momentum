@@ -47,6 +47,10 @@ class JournalController extends Controller
 
         $editMode = $request->boolean('edit');
 
+        // Tombol navigasi pilihan bulan
+        $prevMonth = \Carbon\Carbon::create($year, $month, 1)->subMonth();
+        $nextMonth = \Carbon\Carbon::create($year, $month, 1)->addMonth();
+
         // Siapkan data kalender
         $start = Carbon::create($year, $month)->startOfMonth();
         $end = $start->copy()->endOfMonth();

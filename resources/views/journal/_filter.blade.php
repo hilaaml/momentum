@@ -1,10 +1,4 @@
 <div class="flex justify-between items-center mb-4">
-    <!-- Tombol navigasi ke bulan sebelumnya -->
-    @php
-        $prevMonth = \Carbon\Carbon::create($year, $month, 1)->subMonth();
-        $nextMonth = \Carbon\Carbon::create($year, $month, 1)->addMonth();
-    @endphp
-
     <!-- Tombol: bulan sebelumnya -->
     <a href="{{ route('journal.index', ['month' => $prevMonth->month, 'year' => $prevMonth->year]) }}"
         class="text-lg px-3 py-1 rounded border bg-gray-200 dark:bg-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600">
