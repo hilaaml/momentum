@@ -1,33 +1,43 @@
 <div class="flex justify-between items-center mb-4">
-    {{-- Tombol Sebelumnya --}}
+    <!-- Tombol navigasi ke bulan sebelumnya -->
     @php
-    $prevMonth = \Carbon\Carbon::create($year, $month, 1)->subMonth();
-    $nextMonth = \Carbon\Carbon::create($year, $month, 1)->addMonth();
+        $prevMonth = \Carbon\Carbon::create($year, $month, 1)->subMonth();
+        $nextMonth = \Carbon\Carbon::create($year, $month, 1)->addMonth();
     @endphp
 
+    <!-- Tombol: bulan sebelumnya -->
     <a href="{{ route('journal.index', ['month' => $prevMonth->month, 'year' => $prevMonth->year]) }}"
         class="text-lg px-3 py-1 rounded border bg-gray-200 dark:bg-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600">
         &lt;
     </a>
 
-    {{-- Form Filter --}}
+    <!-- Form dropdown untuk memilih bulan dan tahun -->
     <form method="GET" class="flex gap-2 items-center">
+        <!-- Pilih bulan -->
         <select name="month" class="border rounded p-1 dark:bg-gray-800 dark:text-white">
             @foreach ($monthOptions as $key => $label)
-            <option value="{{ $key }}" {{ $key == $month ? 'selected' : '' }}>{{ $label }}</option>
+                <option value="{{ $key }}" {{ $key == $month ? 'selected' : '' }}>
+                    {{ $label }}
+                </option>
             @endforeach
         </select>
 
+        <!-- Pilih tahun -->
         <select name="year" class="border rounded p-1 pr-8 dark:bg-gray-800 dark:text-white">
             @for ($y = now()->year - 5; $y <= now()->year + 2; $y++)
-                <option value="{{ $y }}" {{ $y == $year ? 'selected' : '' }}>{{ $y }}</option>
-                @endfor
+                <option value="{{ $y }}" {{ $y == $year ? 'selected' : '' }}>
+                    {{ $y }}
+                </option>
+            @endfor
         </select>
 
-        <x-primary-button class="px-2 py-1 bg-indigo-600 text-white rounded">Show</x-primary-button>
+        <!-- Tombol submit -->
+        <x-primary-button class="px-2 py-1 bg-indigo-600 text-white rounded">
+            Show
+        </x-primary-button>
     </form>
 
-    {{-- Tombol Berikutnya --}}
+    <!-- Tombol: bulan berikutnya -->
     <a href="{{ route('journal.index', ['month' => $nextMonth->month, 'year' => $nextMonth->year]) }}"
         class="text-lg px-3 py-1 rounded border bg-gray-200 dark:bg-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600">
         &gt;
