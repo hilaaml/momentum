@@ -4,8 +4,8 @@
         <x-content-card>
             <div class="flex items-center justify-between">
                 <h2 class="text-2xl font-bold">My Challenges</h2>
-                <a href="{{ route('challenges.available') }}" class="text-sm text-blue-600 hover:underline">
-                    + Challenge
+                <a href="{{ route('challenges.available') }}" class="text-xs text-blue-600 hover:underline">
+                    + Join new <br> Challenge
                 </a>
             </div>
         </x-content-card>
@@ -38,6 +38,6 @@
             <p class="text-sm text-gray-500">You haven't joined any challenges yet.</p>
             @endforelse
         </x-content-card>
-        
+
     </div>
 </x-app-layout>

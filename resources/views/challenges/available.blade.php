@@ -9,7 +9,7 @@
                 <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Join Challenge</h1>
                 <a href="{{ route('challenges.created') }}"
                     class="text-xs text-blue-600 hover:underline">
-                    + Challenges
+                    + Challenge
                 </a>
             </div>
         </x-content-card>
