@@ -35,7 +35,7 @@
                 </div>
             </div>
             @empty
-            <p class="text-sm text-gray-500">You haven't joined any challenges yet.</p>
+            <p class="text-xs text-center text-gray-500">You haven't joined any challenges yet.</p>
             @endforelse
         </x-content-card>
 
