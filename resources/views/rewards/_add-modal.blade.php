@@ -16,7 +16,15 @@
                 <input type="number" name="price" min="1" required class="w-full px-2 py-1 border rounded dark:bg-gray-800 dark:text-white">
             </div>
 
-            <x-primary-button class="w-full">Add Reward</x-primary-button>
+            <div class="flex justify-end gap-2">
+                <x-secondary-button type="button"
+                    x-on:click="$dispatch('close')">
+                    Cancel
+                </x-secondary-button>
+                <x-primary-button>
+                    Save
+                </x-primary-button>
+            </div>
         </form>
     </div>
 </x-modal>

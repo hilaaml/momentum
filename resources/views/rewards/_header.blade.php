@@ -7,11 +7,11 @@
             </span>
         </h2>
 
-        <x-secondary-button
+        <x-primary-button
             x-data
             @click="$dispatch('open-modal', 'add-reward-modal')"
             class="text-xs text-indigo-600 hover:underline">
-            + add new
-        </x-secondary-button>
+            + new
+        </x-primary-button>
     </div>
 </x-content-card>
