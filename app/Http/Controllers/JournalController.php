@@ -136,7 +136,7 @@ class JournalController extends Controller
 
         // Cegah input untuk tanggal masa depan
         if ($journalDate->isFuture()) {
-            return redirect()->route('journal.index');
+            return redirect()->route('journal.index')->with('error', 'You cannot create a journal entry for a future date.');
         }
 
         // Cek apakah jurnal sudah ada di tanggal tersebut
@@ -145,7 +145,7 @@ class JournalController extends Controller
             ->first();
 
         if ($existing) {
-            return redirect()->route('journal.index');
+            return redirect()->route('journal.index')->with('error', 'A journal already exists for the selected date.');
         }
 
         // Simpan gambar jika ada
@@ -162,7 +162,7 @@ class JournalController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return redirect()->route('journal.index');
+        return redirect()->route('journal.index')->with('success', 'Journal entry created successfully.');
     }
 
     /**
@@ -209,7 +209,7 @@ class JournalController extends Controller
 
         $journal->update($data);
 
-        return redirect()->route('journal.index');
+        return redirect()->route('journal.index')->with('success', 'Journal updated successfully.');
     }
 
     /**
@@ -225,6 +225,6 @@ class JournalController extends Controller
 
         $journal->delete();
 
-        return redirect()->route('journal.index');
+        return redirect()->route('journal.index')->with('success', 'Journal deleted successfully.');
     }
 }

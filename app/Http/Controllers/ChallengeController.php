@@ -37,36 +37,37 @@ class ChallengeController extends Controller
 
     public function join($id)
     {
-        $userId = Auth::id();
-        $today = Carbon::today();
+        try {
+            $userId = Auth::id();
+            $today = Carbon::today();
 
-        // Masukkan ke pivot table
-        DB::table('challenge_user')->updateOrInsert([
-            'user_id' => $userId,
-            'challenge_id' => $id,
-        ], [
-            'joined_at' => now(),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        // Cek apakah task untuk hari ini sudah ada
-        $taskExists = ChallengeTask::where('user_id', $userId)
-            ->where('challenge_id', $id)
-            ->whereDate('date', $today)
-            ->exists();
-
-        // Kalau belum ada, buat task baru untuk hari ini
-        if (!$taskExists) {
-            ChallengeTask::create([
+            DB::table('challenge_user')->updateOrInsert([
                 'user_id' => $userId,
                 'challenge_id' => $id,
-                'date' => $today,
-                'is_completed' => false,
+            ], [
+                'joined_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
-        }
 
-        return back()->with('success', 'Challenge joined successfully!');
+            $taskExists = ChallengeTask::where('user_id', $userId)
+                ->where('challenge_id', $id)
+                ->whereDate('date', $today)
+                ->exists();
+
+            if (!$taskExists) {
+                ChallengeTask::create([
+                    'user_id' => $userId,
+                    'challenge_id' => $id,
+                    'date' => $today,
+                    'is_completed' => false,
+                ]);
+            }
+
+            return back()->with('success', 'You have successfully joined the challenge.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to join the challenge. Please try again.');
+        }
     }
 
     public function create()
@@ -84,52 +85,57 @@ class ChallengeController extends Controller
             'target_seconds' => 'nullable|required_if:type,time|integer|min:60',
         ]);
 
-        Challenge::create([
-            'creator_id' => auth()->id(),
-            'title' => $request->title,
-            'description' => $request->description,
-            'type' => $request->type,
-            'target_seconds' => $request->type === 'time' ? $request->target_seconds : null,
-            'target_days' => $request->target_days,
-        ]);
+        try {
+            Challenge::create([
+                'creator_id' => auth()->id(),
+                'title' => $request->title,
+                'description' => $request->description,
+                'type' => $request->type,
+                'target_seconds' => $request->type === 'time' ? $request->target_seconds : null,
+                'target_days' => $request->target_days,
+            ]);
 
-        return redirect()->route('challenges.index')->with('success', 'Challenge created successfully!');
+            return redirect()->route('challenges.index')->with('success', 'Challenge created successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to create challenge. Please try again.');
+        }
     }
 
     public function uploadProof(Request $request, Challenge $challenge)
     {
         $request->validate([
-            'proof' => 'required|image|max:2048', // pastikan validasi sesuai
+            'proof' => 'required|image|max:2048',
         ]);
 
-        // Ambil task hari ini milik user untuk challenge ini
         $task = ChallengeTask::where('challenge_id', $challenge->id)
             ->where('user_id', auth()->id())
             ->whereDate('date', now()->toDateString())
             ->first();
 
         if (!$task) {
-            return back()->with('error', 'Task not found or not for today.');
+            return back()->with('error', 'Task not found or not scheduled for today.');
         }
 
-        // Simpan file
-        $path = $request->file('proof')->store('proofs', 'public');
+        try {
+            $path = $request->file('proof')->store('proofs', 'public');
+            $task->proof_image = $path;
+            $task->save();
 
-        // Update task dengan path proof_image
-        $task->proof_image = $path;
-        $task->save();
-
-        return back()->with('success', 'Proof uploaded successfully.');
+            return back()->with('success', 'Proof uploaded successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to upload proof. Please try again.');
+        }
     }
+
 
     public function leave(Challenge $challenge)
     {
-        $user = auth()->user();
-
-        // Hapus dari challenge_user pivot table
-        $challenge->participants()->detach($user->id);
-
-        return back()->with('success', 'You have left the challenge.');
+        try {
+            $challenge->participants()->detach(auth()->id());
+            return back()->with('success', 'You have left the challenge.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to leave the challenge.');
+        }
     }
 
     public function show(Challenge $challenge)
@@ -153,26 +159,30 @@ class ChallengeController extends Controller
 
     public function destroy($id)
     {
-        $challenge = Challenge::where('creator_id', auth()->id())->findOrFail($id);
-        $challenge->delete();
+        try {
+            $challenge = Challenge::where('creator_id', auth()->id())->findOrFail($id);
+            $challenge->delete();
 
-        return redirect()->route('challenges.index')->with('status', 'Challenge deleted successfully.');
+            return redirect()->route('challenges.index')->with('success', 'Challenge deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('challenges.index')->with('error', 'Failed to delete the challenge.');
+        }
     }
 
     public function removeParticipant(Challenge $challenge, User $user)
     {
-        // Pastikan hanya creator yang bisa menghapus
         if (auth()->id() !== $challenge->creator_id) {
-            abort(403);
+            return redirect()->back()->with('error', 'Unauthorized action.');
         }
 
-        // Hapus partisipasi user dari challenge (misal: pivot table atau progress)
-        $challenge->participants()->detach($user->id);
+        try {
+            $challenge->participants()->detach($user->id);
+            $challenge->tasks()->where('user_id', $user->id)->delete();
 
-        // Jika kamu juga ingin hapus task / progress mereka:
-        $challenge->tasks()->where('user_id', $user->id)->delete();
-
-        return redirect()->back()->with('success', 'Participant removed successfully.');
+            return redirect()->back()->with('success', 'Participant removed successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to remove participant.');
+        }
     }
 
     public function participants(Challenge $challenge)

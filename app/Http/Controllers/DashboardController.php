@@ -147,12 +147,15 @@ class DashboardController extends Controller
             'streak_minute_input' => 'required|integer|min:1',
         ]);
 
-        // Simpan konfigurasi streak ke profil user
-        $user = auth()->user();
-        $user->streak_minimum_seconds = $request->streak_minute_input * 60;
-        $user->save();
+        try {
+            // Simpan konfigurasi streak ke profil user
+            $user = auth()->user();
+            $user->streak_minimum_seconds = $request->streak_minute_input * 60;
+            $user->save();
 
-        // Redirect kembali ke dashboard
-        return redirect()->route('dashboard')->with('success', 'Streak configuration updated successfully.');
+            return redirect()->route('dashboard')->with('success', 'Streak configuration updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard')->with('error', 'Failed to update streak configuration.');
+        }
     }
 }

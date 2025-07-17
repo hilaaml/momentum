@@ -29,7 +29,7 @@ class TaskController extends Controller
         }
         $user->save();
 
-        return back();
+        return back()->with('success', 'Task status updated.');
     }
     public function store(Request $request)
     {
@@ -48,7 +48,7 @@ class TaskController extends Controller
             'name' => $request->name,
         ]);
 
-        return back();
+        return back()->with('success', 'Task added successfully.');
     }
 
     public function update(Request $request, Task $task)
@@ -56,13 +56,13 @@ class TaskController extends Controller
         $this->authorize('update', $task);
         $request->validate(['name' => 'required|string|max:255']);
         $task->update(['name' => $request->name]);
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Task updated successfully.');
     }
 
     public function destroy(Task $task)
     {
         $this->authorize('delete', $task);
         $task->delete();
-        return back();
+        return back()->with('success', 'Task deleted successfully.');
     }
 }

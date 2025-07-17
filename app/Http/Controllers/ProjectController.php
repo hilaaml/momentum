@@ -42,7 +42,7 @@ class ProjectController extends Controller
             }
         }
 
-        return redirect()->route('dashboard')->with('success', 'Project Created Successfully.');
+        return redirect()->route('dashboard')->with('success', 'Project created successfully.');
     }
 
     public function update(Request $request, Project $project)
@@ -51,13 +51,18 @@ class ProjectController extends Controller
         $request->validate(['name' => 'required|string|max:255']);
         $project->update(['name' => $request->name]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Project updated successfully.');
     }
 
     public function destroy(Project $project)
     {
         $this->authorize('delete', $project);
-        $project->delete();
-        return back();
+
+        try {
+            $project->delete();
+            return back()->with('success', 'Project deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to delete project.');
+        }
     }
 }

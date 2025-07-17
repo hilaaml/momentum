@@ -73,7 +73,7 @@
             :class="expanded ? 'md:ml-[150px]' : 'md:ml-[70px]'">
 
             <main class="min-h-screen flex flex-col pt-0">
-                <div class="w-full max-w-[90%] sm:max-w-[90%] lg:max-w-[70%] mx-auto px-4 py-8 pb-[80px] md:pb-8">
+                <div class="w-full max-w-[90%] sm:max-w-[90%] lg:max-w-[70%] mx-auto px-1 py-8 pb-[80px] md:pb-8">
                     {{ $slot }}
                 </div>
             </main>

@@ -30,7 +30,7 @@ class TimeLogController extends Controller
             'start_time' => now(),
         ]);
 
-        return back();
+        return back()->with('success', 'Timer started.');
     }
 
     // Hentikan timer aktif pada project
@@ -70,8 +70,8 @@ class TimeLogController extends Controller
             }
 
             $user->save();
+            return back()->with('success', 'Timer stopped. Duration recorded.');
         }
-
-        return back();
+        return back()->with('error', 'No active timer found.');
     }
 }
