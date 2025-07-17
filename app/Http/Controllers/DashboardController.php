@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Carbon;
 use App\Models\TimeLog;
 use App\Models\Project;
+use App\Models\Challenge;
 use App\Models\Character;
+use Illuminate\Support\Facades\DB;
+use App\Models\ChallengeTask;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -55,6 +58,73 @@ class DashboardController extends Controller
         // Ambil karakter yang sudah di-unlock user
         $unlockedCharacters = $user->characters;
 
+        // Challenge yang diikuti
+        $joinedChallengeIds = DB::table('challenge_user')
+            ->where('user_id', $user->id)
+            ->pluck('challenge_id');
+
+        $joinedChallenges = Challenge::whereIn('id', $joinedChallengeIds)->get();
+
+        $today = Carbon::today();
+        $joinedChallenges = Challenge::whereIn('id', $joinedChallengeIds)->get();
+
+        $challengesWithProgress = $joinedChallenges->map(function ($challenge) use ($user, $today) {
+            $taskToday = ChallengeTask::where('challenge_id', $challenge->id)
+                ->where('user_id', $user->id)
+                ->whereDate('date', $today)
+                ->first();
+
+            $completedToday = false;
+
+            if ($challenge->type === 'task') {
+                $completedToday = $taskToday && $taskToday->proof_image && trim($taskToday->proof_image) !== '';
+            } elseif ($challenge->type === 'time') {
+                $completedToday = $taskToday?->is_completed ?? false;
+            }
+
+            $hasUploadedProof = $taskToday && $taskToday->proof_image && trim($taskToday->proof_image) !== '';
+
+            $startDate = DB::table('challenge_user')
+                ->where('challenge_id', $challenge->id)
+                ->where('user_id', $user->id)
+                ->value('joined_at');
+
+            $diffDays = Carbon::parse($startDate)->diffInDays($today);
+            $streak = ChallengeTask::where('challenge_id', $challenge->id)
+                ->where('user_id', $user->id)
+                ->where('is_completed', true)
+                ->orderByDesc('date')
+                ->take($challenge->target_days)
+                ->get()
+                ->reduce(function ($carry, $task) use ($today) {
+                    $expectedDate = $today->copy()->subDays($carry);
+                    return $task->date->isSameDay($expectedDate) ? $carry + 1 : $carry;
+                }, 0);
+
+            // Untuk time challenge, hitung remaining menit hari ini
+            $remainingMinutesToday = null;
+            if ($challenge->type === 'time') {
+                $totalSeconds = TimeLog::whereHas('project', function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                })
+                    ->whereDate('start_time', $today)
+                    ->get()
+                    ->sum(function ($log) {
+                        return Carbon::parse($log->end_time)->diffInSeconds(Carbon::parse($log->start_time));
+                    });
+
+                $remainingMinutesToday = max(0, ceil(($challenge->target_seconds - $totalSeconds) / 60));
+            }
+
+            $challenge->streak = $streak;
+            $challenge->days_remaining = max(0, $challenge->target_days - $diffDays);
+            $challenge->is_completed_today = $completedToday;
+            $challenge->has_uploaded_proof_today = $hasUploadedProof;
+            $challenge->remaining_minutes_today = $remainingMinutesToday;
+
+            return $challenge;
+        });
+
         // Tampilkan view dashboard dengan data yang dibutuhkan
         return view('dashboard.index', compact(
             'projects',
@@ -64,6 +134,9 @@ class DashboardController extends Controller
             'streak',
             'unlockedCharacters',
             'formattedTodayTime',
+
+            'joinedChallenges',
+            'challengesWithProgress'
         ));
     }
 
@@ -80,6 +153,6 @@ class DashboardController extends Controller
         $user->save();
 
         // Redirect kembali ke dashboard
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Streak configuration updated successfully.');
     }
 }

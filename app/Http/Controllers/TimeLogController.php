@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\TimeLog;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Artisan;
 
 class TimeLogController extends Controller
 {
@@ -48,6 +49,9 @@ class TimeLogController extends Controller
 
             // Hitung durasi dalam detik
             $seconds = $log->start_time->diffInSeconds($log->end_time);
+
+            // Cek apakah timelogs > challenge
+            Artisan::call('app:check-challenge-progress');
 
             $user = auth()->user();
 

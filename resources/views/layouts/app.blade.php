@@ -36,6 +36,32 @@
 <!-- layout utama (app.blade.php / x-app-layout) -->
 
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
+    @if (session('success'))
+    <div
+        x-data="{ show: true }"
+        x-init="setTimeout(() => show = false, 3000)"
+        x-show="show"
+        x-transition
+        class="text-xs fixed top-5 right-5 w-1/2 max-w-sm bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded-lg shadow-lg z-50"
+        role="alert">
+        <div class="font-semibold">Success</div>
+        <div>{{ session('success') }}</div>
+    </div>
+    @endif
+
+    @if (session('error'))
+    <div
+        x-data="{ show: true }"
+        x-init="setTimeout(() => show = false, 3000)"
+        x-show="show"
+        x-transition
+        class="fixed top-5 right-5 w-1/2 max-w-sm bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded-lg shadow-lg z-50"
+        role="alert">
+        <div class="font-semibold">Error</div>
+        <div>{{ session('error') }}</div>
+    </div>
+    @endif
+
     <div class="min-h-screen flex flex-col" x-data="sidebar()" x-init="init()">
 
         {{-- Include navigation (mobile top + desktop sidebar) --}}
@@ -47,11 +73,10 @@
             :class="expanded ? 'md:ml-[150px]' : 'md:ml-[70px]'">
 
             <main class="min-h-screen flex flex-col pt-0">
-                <div class="w-full max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] mx-auto px-4 py-8 pb-[80px] md:pb-8">
+                <div class="w-full max-w-[90%] sm:max-w-[90%] lg:max-w-[70%] mx-auto px-4 py-8 pb-[80px] md:pb-8">
                     {{ $slot }}
                 </div>
             </main>
-            
         </div>
     </div>
 </body>

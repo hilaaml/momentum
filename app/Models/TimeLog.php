@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class TimeLog extends Model
 {
     use HasFactory;
 
     protected $casts = [
+        'date' => 'date',
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];

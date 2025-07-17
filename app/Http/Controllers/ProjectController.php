@@ -42,7 +42,7 @@ class ProjectController extends Controller
             }
         }
 
-        return redirect()->route('dashboard')->with('success', 'Project berhasil dibuat.');
+        return redirect()->route('dashboard')->with('success', 'Project Created Successfully.');
     }
 
     public function update(Request $request, Project $project)

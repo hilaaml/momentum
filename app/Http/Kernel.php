@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -68,6 +71,6 @@ class Kernel extends HttpKernel
 
     protected function schedule(Schedule $schedule)
     {
-        //
+        $schedule->command('challenge:check-progress')->daily();
     }
 }

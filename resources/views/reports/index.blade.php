@@ -1,7 +1,7 @@
 <x-app-layout>
     @include('reports._scripts')
 
-    <div class="mx-auto space-y-6 text-center">
+    <div class="space-y-6 text-center">
 
         @include('reports._filter-form')
         @include('reports._character')

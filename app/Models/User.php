@@ -86,6 +86,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Character::class)->withTimestamps();
     }
 
+    public function latestCharacter()
+    {
+        return $this->belongsToMany(Character::class)
+            ->withTimestamps()
+            ->orderBy('character_user.created_at', 'desc')
+            ->limit(1);
+    }
+
     public function timeLogs()
     {
         return $this->hasManyThrough(
@@ -188,5 +196,22 @@ class User extends Authenticatable
         return \DB::table('projects')
             ->where('user_id', $this->id)
             ->sum('total_seconds');
+    }
+
+    public function joinedChallenges()
+    {
+        return $this->belongsToMany(Challenge::class, 'challenge_user')
+            ->withPivot(['joined_at'])
+            ->withTimestamps();
+    }
+
+    public function createdChallenges()
+    {
+        return $this->hasMany(Challenge::class, 'creator_id');
+    }
+
+    public function challengeTasks()
+    {
+        return $this->hasMany(\App\Models\ChallengeTask::class);
     }
 }

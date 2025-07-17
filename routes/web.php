@@ -14,6 +14,7 @@ use App\Http\Controllers\{
     ProfileController,
     Auth\SocialiteController,
     RewardController,
+    ChallengeController,
 };
 
 /*
@@ -69,6 +70,22 @@ Route::middleware('auth')->group(function () {
         ->middleware('auth');
     Route::post('/rewards/{reward}/redeem', [RewardController::class, 'redeem'])->name('rewards.redeem');
 
+    // Challenge
+    // Challenge
+    Route::get('/challenges/available', [ChallengeController::class, 'available'])->name('challenges.available');
+    Route::get('/challenges/created', [ChallengeController::class, 'created'])->name('challenges.created');
+    Route::get('/challenges/{challenge}/participants', [ChallengeController::class, 'participants'])
+        ->name('challenges.participants');
+
+    Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+    Route::post('/challenges/{id}/join', [ChallengeController::class, 'join'])->name('challenge.join');
+    Route::get('/challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
+    Route::post('/challenges', [ChallengeController::class, 'store'])->name('challenges.store');
+    Route::post('/challenges/{challenge}/upload-proof', [ChallengeController::class, 'uploadProof'])->name('challenges.uploadProof');
+    Route::post('/challenges/{challenge}/leave', [ChallengeController::class, 'leave'])->name('challenge.leave');
+    Route::get('/challenges/{challenge}', [ChallengeController::class, 'show'])->name('challenges.show');
+    Route::delete('/challenges/{id}', [ChallengeController::class, 'destroy'])->name('challenges.destroy');
+    Route::delete('/challenges/{challenge}/participants/{user}', [ChallengeController::class, 'removeParticipant'])->name('challenge.removeParticipant');
 
     // Settings
     Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
