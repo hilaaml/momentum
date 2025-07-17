@@ -53,7 +53,7 @@
                         @csrf
                         @method('DELETE')
 
-                        <h2 class="text-lg font-medium text-gray-900">Are you sure?</h2>
+                        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">Are you sure?</h2>
                         <p class="mt-1 text-sm text-gray-600">This will remove the participant and their progress.</p>
 
                         <div class="mt-6 flex justify-end gap-2">

@@ -1,7 +1,7 @@
 <x-modal name="create-challenge-modal" focusable>
     <form action="{{ route('challenges.store') }}" method="POST" class="p-6 space-y-4">
         @csrf
-        <h2 class="text-xl font-bold">Create a New Challenge</h2>
+        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">Create a New Challenge</h2>
 
         <div>
             <label class="block text-sm font-medium">Title</label>
@@ -34,6 +34,10 @@
             <label class="block text-sm font-medium">Duration (days)</label>
             <input type="number" name="target_days" value="{{ old('target_days') }}" required class="w-full px-3 py-2 border rounded" />
             @error('target_days') <div class="text-red-500 text-xs">{{ $message }}</div> @enderror
+        </div>
+
+        <div>
+            <p class="text-red text-xs">Are you sure? This challenge can't be edited later.</p>
         </div>
 
         <div class="flex justify-end gap-2">

@@ -24,7 +24,7 @@
         <!-- Komponen modal untuk warning -->
         <x-modal name="future-date-warning" :show="true">
             <div class="p-6">
-                <h2 class="font-bold text-gray-800 dark:text-gray-100">Cannot Create Journal</h2>
+                <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">Cannot Create Journal</h2>
                 <p class="my-4 text-gray-600 dark:text-gray-300">
                     You cannot create journal entries for future dates.
                 </p>

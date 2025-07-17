@@ -34,7 +34,7 @@
 
                         <x-modal name="{{ $modalId }}" focusable>
                             <div class="p-6">
-                                <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+                                <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">
                                     Remove {{ $task->user->name }}?
                                 </h2>
                                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">

@@ -43,7 +43,7 @@
                 <form method="POST" action="{{ route('challenges.destroy', $challenge->id) }}" class="p-6">
                     @csrf
                     @method('DELETE')
-                    <h2 class="text-lg font-medium text-gray-900 dark:text-white">Are you sure you want to delete this challenge?</h2>
+                    <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">Are you sure you want to delete this challenge?</h2>
                     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">This action cannot be undone.</p>
                     <div class="mt-6 flex justify-end gap-2">
                         <x-secondary-button type="button" x-on:click="$dispatch('close')">Cancel</x-secondary-button>

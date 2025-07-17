@@ -1,6 +1,6 @@
 <x-modal name="add-reward-modal" focusable>
     <div class="p-6">
-        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">
             Add New Reward
         </h2>
 

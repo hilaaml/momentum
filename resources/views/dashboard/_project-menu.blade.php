@@ -33,7 +33,7 @@
         @csrf
         <input type="hidden" name="project_id" value="{{ $project->id }}" />
 
-        <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">
+        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">
             add new task to <strong>{{ $project->name }}</strong>
         </h2>
 
@@ -57,7 +57,7 @@
     <form method="POST" action="{{ route('projects.update', $project) }}" class="pb-6 pt-3 px-6 space-y-3">
         @csrf @method('PATCH')
 
-        <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">edit project name</h2>
+        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">edit project name</h2>
 
         <div>
             <!-- Input nama project -->
@@ -79,7 +79,7 @@
     <form method="POST" action="{{ route('projects.destroy', $project) }}" class="pb-6 pt-3 px-6 space-y-3">
         @csrf @method('DELETE')
 
-        <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">delete project</h2>
+        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">delete project</h2>
 
         <!-- Pesan konfirmasi -->
         <p class="text-sm text-gray-600 dark:text-gray-300">

@@ -22,7 +22,7 @@
     <form method="POST" action="{{ route('tasks.update', $task) }}" class="pb-6 pt-3 px-6 space-y-3">
         @csrf @method('PATCH')
 
-        <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">Edit Task</h2>
+        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">Edit Task</h2>
 
         <div>
             <x-text-input
@@ -45,7 +45,7 @@
     <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="pb-6 pt-3 px-6 space-y-3">
         @csrf @method('DELETE')
 
-        <h2 class="text-sm font-semibold text-gray-600 dark:text-gray-300">Delete task</h2>
+        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">Delete task</h2>
 
         <p class="text-sm text-gray-600 dark:text-gray-400">
             Are you sure you want to delete this task (<strong>{{ $task->name }}</strong>) ?

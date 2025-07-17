@@ -40,7 +40,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="p-6">
                         @csrf
 
-                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                        <h2 class="mb-2 pb-2 border-b text-sm font-semibold text-gray-600 dark:text-gray-300">
                             {{ __('Are you sure you want to log out?') }}
                         </h2>
 
