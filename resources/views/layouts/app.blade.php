@@ -55,7 +55,7 @@
         x-init="setTimeout(() => show = false, 3000)"
         x-show="show"
         x-transition
-        class="fixed top-5 right-5 w-1/2 max-w-sm bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded-lg shadow-lg z-50"
+        class="text-xs fixed top-5 right-5 w-1/2 max-w-sm bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded-lg shadow-lg z-50"
         role="alert">
         <div class="font-semibold">Error</div>
         <div>{{ session('error') }}</div>
@@ -64,10 +64,8 @@
 
     <div class="min-h-screen flex flex-col" x-data="sidebar()" x-init="init()">
 
-        {{-- Include navigation (mobile top + desktop sidebar) --}}
         @include('layouts.navigation')
 
-        {{-- Konten utama --}}
         <div
             class="flex-1 transition-all duration-500 flex flex-col"
             :class="expanded ? 'md:ml-[150px]' : 'md:ml-[70px]'">
