@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
 use App\Models\Character;
-use Illuminate\Support\Facades\Storage;
 
 class CharacterSeeder extends Seeder
 {
