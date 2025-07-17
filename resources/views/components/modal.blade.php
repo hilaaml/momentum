@@ -1,17 +1,12 @@
 @props([
 'name',
 'show' => false,
-'maxWidth' => '75%'
+'maxWidth' => '75vw'
 ])
 
 @php
 $maxWidth = [
-'sm' => 'sm:max-w-sm',
-'md' => 'sm:max-w-md',
-'lg' => 'sm:max-w-lg',
-'xl' => 'sm:max-w-xl',
-'2xl' => 'sm:max-w-1xl',
-'75%' => 'max-w-[75%]',
+'75vw' => 'max-w-[75vw]',
 ][$maxWidth];
 @endphp
 
@@ -64,7 +59,7 @@ $maxWidth = [
 
     <div
         x-show="show"
-        class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl transform transition-all sm:w-full {{ $maxWidth }}"
+        class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl transform transition-all w-[75vw]"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
