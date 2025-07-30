@@ -9,6 +9,8 @@ Organize your tasks, track every minute, generate insightful reports, and see yo
 - **Productivity Analytics** – Track performance with streaks, heatmaps, and filterable reports by day, hour, and project
 - **Daily Journal** – Document your progress with searchable entries and calendar view
 
+https://github.com/user-attachments/assets/1ebfdb25-8068-4f29-b424-24a4f6ea3167
+
 ## Tech
 
 - Backend: Laravel 10 (PHP 8.1+)
